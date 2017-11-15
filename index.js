@@ -19,6 +19,14 @@ passport.use(
 	)
 )
 
+app.get(
+	'/auth/google',
+	passport.authenticate('google', {
+		scope: ['profile', 'email']
+	})
+)
+//first argument is the path, second is code to be executed when the request comes in
+
 const PORT = process.env.PORT || 5000
 //heroko injects environment variables in this case the port,
 //while there is no port, i.e. dev mode we use localhost:5000
