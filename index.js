@@ -13,19 +13,28 @@ passport.use(
 			clientSecret: keys.googleClientSecret,
 			callbackURL: '/auth/google/callback'
 		},
-		accessToken => {
-			console.log(accessToken)
+		(accessToken, refreshToken, profile, done) => {
+			console.log('accessToken', accessToken)
+			console.log('refreshToken', refreshToken)
+			console.log('profile', profile)
 		}
 	)
 )
 
 app.get(
 	'/auth/google',
+	//first argument is the path
 	passport.authenticate('google', {
 		scope: ['profile', 'email']
 	})
+	//second is code to be executed when the request comes in
 )
-//first argument is the path, second is code to be executed when the request comes in
+
+app.get(
+  '/auth/google/callback', 
+  passport.authenticate('google')
+)
+//this time the authentication via passport will pick up the returned code in the HTTP request
 
 const PORT = process.env.PORT || 5000
 //heroko injects environment variables in this case the port,
