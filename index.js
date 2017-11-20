@@ -1,9 +1,29 @@
 const express = require('express')
+const mongoose = require('mongoose')
+const cookieSession = require('cookie-session')
+const passport = require('passport')
 const authRoutes = require('./routes/authRoutes')
-require('./services/passport') // not passing any specific variable down to index.js
+const keys = require('./config/keys')
+
+// mongoose and passport config to load whenever app starts
+// - load mongoose first because passport is using the User model
+require('./models/User')
+require('./services/passport')
+
+mongoose.connect(keys.mongoURI)
 
 // create express app
 const app = express()
+
+// tell the app to use cookies using cookie-sessions
+app.use(
+  cookieSession({
+    maxAge: 30*24*60*60*1000, //30 days
+    keys: [keys.cookieKey]
+  })
+)
+app.use(passport.initialize())
+app.use(passport.session())
 
 // call authRoutes function passing express app
 authRoutes(app)

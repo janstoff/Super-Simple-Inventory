@@ -1,7 +1,24 @@
 // Passport.js
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
+
+const mongoose = require('mongoose')
 const keys = require('../config/keys')
+
+const User = mongoose.model('users')
+
+// generate a unique identifying piece of info using passport
+passport.serializeUser((user, done) => {
+	done(null, user.id) //shortcut to mongo user id
+})
+
+// take id and turn it back into a User model
+passport.deserializeUser((id, done) => {
+	User.findById(id)
+		.then(user => {
+			done(null, user)
+		})
+})
 
 //make passport aware of new GoogleStrategy
 passport.use(
@@ -12,9 +29,17 @@ passport.use(
 			callbackURL: '/auth/google/callback'
 		},
 		(accessToken, refreshToken, profile, done) => {
-			console.log('accessToken', accessToken)
-			console.log('refreshToken', refreshToken)
-			console.log('profile', profile)
+			User.findOne({ googleId: profile.id }).then(existingUser => {
+				if (existingUser) {
+					//already have record for that user id
+					done(null, existingUser)
+				} else {
+					//make new record
+					new User({ googleId: profile.id })
+						.save()
+						.then(newUser => done(null, newUser))
+				}
+			})
 		}
 	)
 )
