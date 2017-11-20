@@ -14,6 +14,8 @@ module.exports = app => {
 	app.get(
 		//this time the auth via passport will pick up and pass on the returned code
 		'/auth/google/callback',
+
+		// continue only if email is an OMR email!!!
 		passport.authenticate('google')
 	)
 
