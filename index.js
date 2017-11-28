@@ -2,8 +2,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
-const authRoutes = require('./routes/authRoutes')
+const bodyParser = require('body-parser')
 const keys = require('./config/keys')
+const authRoutes = require('./routes/authRoutes')
+const billingRoutes = require('./routes/billingRoutes')
 
 // mongoose and passport config to load whenever app starts
 // - load mongoose first because passport is using the User model
@@ -15,6 +17,11 @@ mongoose.connect(keys.mongoURI)
 // create express app
 const app = express()
 
+//MIDDLEWARE (via app.use())
+
+//parse incoming put, post, patch, whatever requests and assign to req.body
+app.use(bodyParser.json())
+
 // tell the app to use cookies using cookie-sessions
 app.use(
   cookieSession({
@@ -25,10 +32,12 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-// call authRoutes function passing express app
+// ROUTES
 authRoutes(app)
+billingRoutes(app)
 
-//heroko injects environment variables in this case the port,
-//while there is no port, i.e. dev mode we use localhost:5000
+//ENVIRONMENT
 const PORT = process.env.PORT || 5000
 app.listen(PORT)
+//heroko injects environment variables in this case the port,
+//while there is no port, i.e. dev mode we use localhost:5000
