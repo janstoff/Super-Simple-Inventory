@@ -14,10 +14,9 @@ passport.serializeUser((user, done) => {
 
 // take id and turn it back into a User model
 passport.deserializeUser((id, done) => {
-	User.findById(id)
-		.then(user => {
-			done(null, user)
-		})
+	User.findById(id).then(user => {
+		done(null, user)
+	})
 })
 
 //make passport aware of new GoogleStrategy
@@ -29,18 +28,15 @@ passport.use(
 			callbackURL: '/auth/google/callback',
 			proxy: true //trust Heroku proxy and calculate callbackURL as https not http
 		},
-		(accessToken, refreshToken, profile, done) => {
-			User.findOne({ googleId: profile.id }).then(existingUser => {
-				if (existingUser) {
-					//already have record for that user id
-					done(null, existingUser)
-				} else {
-					//make new record
-					new User({ googleId: profile.id })
-						.save()
-						.then(newUser => done(null, newUser))
-				}
-			})
+		async (accessToken, refreshToken, profile, done) => {
+			const existingUser = await User.findOne({ googleId: profile.id })
+
+			if (existingUser) {
+				done(null, existingUser)
+			} else {
+				const newUser = await new User({ googleId: profile.id }).save()
+				done(null, newUser)
+			}
 		}
 	)
 )
