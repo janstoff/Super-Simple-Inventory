@@ -24,10 +24,10 @@ app.use(bodyParser.json())
 
 // tell the app to use cookies using cookie-sessions
 app.use(
-  cookieSession({
-    maxAge: 30*24*60*60*1000, //30 days
-    keys: [keys.cookieKey]
-  })
+	cookieSession({
+		maxAge: 30 * 24 * 60 * 60 * 1000, //30 days
+		keys: [keys.cookieKey]
+	})
 )
 app.use(passport.initialize())
 app.use(passport.session())
@@ -35,6 +35,19 @@ app.use(passport.session())
 // ROUTES
 authRoutes(app)
 billingRoutes(app)
+
+if (process.env.NODE_ENV === 'production') {
+	// Express will serve up production assets such as main.js and main.css
+	// if the requested ROUTE is not previously defined look in client/build
+	app.use(express.static('client/build'))
+
+	// Express will serve up the index.html file
+	// if we don't recognize the ROUTE at all we assume react-router will handle it via index.html
+  const path = require('path')
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
 
 //ENVIRONMENT
 const PORT = process.env.PORT || 5000
