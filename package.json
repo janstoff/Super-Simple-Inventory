@@ -15,7 +15,7 @@
 		"client-install": "(cd ./client && yarn install)",
 		"client-build": "(cd ./client && yarn run build)",
 		"heroku-postbuild":
-			"NPM_CONFIG_PRODUCTION=false yarn run client-install && yarn run client-build"
+			"YARN_PRODUCTION=false yarn run client-install && yarn run client-build"
 	},
 	"author": "",
 	"license": "ISC",
