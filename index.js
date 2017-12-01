@@ -1,19 +1,17 @@
+// mongoose and passport CONFIG to load whenever app starts
+// - load mongoose first because passport is using the User model
 const express = require('express')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
 const bodyParser = require('body-parser')
 const keys = require('./config/keys')
-const authRoutes = require('./routes/authRoutes')
-const billingRoutes = require('./routes/billingRoutes')
-const surveyRoutes = require('./routes/surveyRoutes')
 
-// mongoose and passport config to load whenever app starts
-// - load mongoose first because passport is using the User model
 require('./models/User')
 require('./models/Survey')
 require('./services/passport')
 
+mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI)
 
 // create express app
@@ -35,9 +33,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // ROUTES
-authRoutes(app)
-billingRoutes(app)
-surveyRoutes(app)
+require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
 	// Express will serve up production assets such as main.js and main.css
