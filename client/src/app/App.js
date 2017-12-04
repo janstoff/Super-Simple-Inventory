@@ -6,8 +6,9 @@ import PropTypes from 'prop-types'
 import * as actions from './actions'
 import Header from './components/Header'
 import Landing from './components/Landing'
-const Dashboard = () => <h2>Dashboard</h2>
-const SurveyNew = () => <h2>Survey New</h2>
+import Dashboard from './components/Dashboard'
+import SurveyNew from './components/Surveys/SurveyNew'
+
 
 class App extends Component {
   static propTypes = {
@@ -22,7 +23,7 @@ class App extends Component {
     return (
       <div>
         <BrowserRouter>
-          <div>
+          <div style={{ margin: 5 }}>
             <Header />
             <div className="container">
               <Route exact path="/" component={Landing} />
