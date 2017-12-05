@@ -1,12 +1,35 @@
 const mongoose = require('mongoose')
+const _ = require('lodash')
+const Path = require('path-parser')
+const { URL } = require('url')
+
 const requireLogin = require('../middleware/requireLogin')
 const requireCredits = require('../middleware/requireCredits')
-
 const Survey = mongoose.model('surveys')
 const Mailer = require('../services/Mailer')
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate')
 
 module.exports = app => {
+
+	app.post('/api/surveys/webhooks', (req, res) => {
+		const path = new Path('/api/surveys/:surveyId/:choice')
+
+		const events = _.chain(req.body)
+			.map(({ url, email }) => {
+				const result = path.test(new URL(url).pathname)
+				if (result) {
+					return { email: email, surveyId: result.surveyId, choice: result.choice }
+				}
+			})
+			.compact() // remove undefined elements
+			.uniqBy('email', 'surveyId') // remove duplicates
+			.value() // return the resulting array
+
+		console.log(events)
+		res.send({})
+	})
+
+
 	app.get('/api/surveys/thanks', (req, res) => {
 		res.send('Thanks for voting!')
 	})

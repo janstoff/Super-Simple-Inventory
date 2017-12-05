@@ -18,10 +18,8 @@ mongoose.connect(keys.mongoURI)
 const app = express()
 
 //MIDDLEWARE (via app.use())
-
 //parse incoming put, post, patch, whatever requests and assign to req.body
 app.use(bodyParser.json())
-
 // tell the app to use cookies using cookie-sessions
 app.use(
 	cookieSession({
