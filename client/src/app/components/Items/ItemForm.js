@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 import ItemField from './ItemField'
-import validateEmails from '../../utils/validateEmails'
 import formFields from './formFields'
 
 class ItemForm extends Component {
@@ -43,8 +42,6 @@ class ItemForm extends Component {
 
 function validate(values) {
 	const errors = {}
-
-	errors.recipients = validateEmails(values.recipients || ' ')
 
 	formFields.forEach(({ name, errorMessage }) => {
 		if (!values[name]) {

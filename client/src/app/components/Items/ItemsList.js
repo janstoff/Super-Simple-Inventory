@@ -17,6 +17,10 @@ class ItemsList extends Component {
 	render() {
 		const { items } = this.props
 
+		if(!items) {
+			return <div>...Loading</div>
+		}
+
 		return items.map(item => {
 			return (
 				<div className="card blue-grey darken-1">
