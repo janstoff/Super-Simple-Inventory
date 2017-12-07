@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const SurveyField = ({ input, label, meta: { error, touched }}) => {
+const ItemField = ({ input, label, meta: { error, touched }}) => {
   return(
     <div>
       <label>{label}</label>
@@ -12,11 +12,11 @@ const SurveyField = ({ input, label, meta: { error, touched }}) => {
   )
 }
 
-SurveyField.propTypes = {
+ItemField.propTypes = {
   input: PropTypes.object,
   error: PropTypes.object,
   touched: PropTypes.object,
   label: PropTypes.string
 }
 
-export default SurveyField
+export default ItemField

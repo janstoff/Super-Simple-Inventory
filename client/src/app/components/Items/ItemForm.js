@@ -4,28 +4,28 @@ import { reduxForm, Field } from 'redux-form' //enables component to access redu
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-import SurveyField from './SurveyField'
+import ItemField from './ItemField'
 import validateEmails from '../../utils/validateEmails'
 import formFields from './formFields'
 
-class SurveyForm extends Component {
+class ItemForm extends Component {
 	static propTypes = {
 		handleSubmit: PropTypes.func, //from reduxForm
-    onSurveySubmit: PropTypes.func
+    onItemSubmit: PropTypes.func
 	}
 
 	render() {
 		return (
 			<div>
-				<h4 style={{ marginBottom: 30 }}>Create Survey</h4>
-				<form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
+				<h4 style={{ marginBottom: 30 }}>Create Item</h4>
+				<form onSubmit={this.props.handleSubmit(this.props.onItemSubmit)}>
 					{formFields.map(({ label, name }) => (
 						<Field
 							key={label}
 							label={label}
 							type="text"
 							name={name}
-							component={SurveyField}
+							component={ItemField}
 						/>
 					))}
 					<Link to="/surveys" className="red btn-flat white-text">
@@ -59,4 +59,4 @@ export default reduxForm({
 	validate,
 	form: 'surveyForm',
   destroyOnUnmount: false
-})(SurveyForm)
+})(ItemForm)

@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-import Payments from './Payments'
-
 class Header extends Component {
 	static propTypes = {
 		auth: PropTypes.any
@@ -22,8 +20,6 @@ class Header extends Component {
 				)
 			default:
       return [
-				<li key="payments"><Payments /></li>,
-				<li key="credits" style={{ margin: '0 10px' }}>Credits: {this.props.auth.credits}</li>,
 				<li key="logout"><a href="/api/logout">Logout</a></li>
 			]
 		}
@@ -38,7 +34,7 @@ class Header extends Component {
             className="left brand-logo"
 						style={{ paddingLeft: 12 }}
             >
-              Emaily
+              OMR Warehousing
           </Link>
 
 					<ul className="right">{this.renderContent()}</ul>

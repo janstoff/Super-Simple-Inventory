@@ -4,9 +4,9 @@ const Landing = () => {
   return(
     <div style={{ textAlign: 'center' }}>
       <h2>
-        Emaily!
+        OMR Warehouse
       </h2>
-      Collect feedback from your users...
+      Find, add, analyze inventory...
     </div>
   )
 }

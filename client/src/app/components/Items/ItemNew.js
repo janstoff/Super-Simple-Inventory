@@ -2,24 +2,24 @@
 import React, { Component } from 'react'
 import { reduxForm } from 'redux-form'
 
-import SurveyForm from './SurveyForm'
-import SurveyFormReview from './SurveyFormReview'
+import ItemForm from './ItemForm'
+import ItemFormReview from './ItemFormReview'
 
-class SurveyNew extends Component {
+class ItemNew extends Component {
 	state = { showFormReview: false }
 
 	render() {
 		if (this.state.showFormReview) {
 			return (
-				<SurveyFormReview
+				<ItemFormReview
 					onCancel={() => this.setState({ showFormReview: false })}
 				/>
 			)
 		}
 
 		return (
-			<SurveyForm
-				onSurveySubmit={() => this.setState({ showFormReview: true })}
+			<ItemForm
+				onItemSubmit={() => this.setState({ showFormReview: true })}
 			/>
 		)
 	}
@@ -28,4 +28,4 @@ class SurveyNew extends Component {
 export default reduxForm({
 	form: 'surveyForm'
 	// destroyOnUnmount: true by default breaking the formValue persist when cancelling
-})(SurveyNew)
+})(ItemNew)
