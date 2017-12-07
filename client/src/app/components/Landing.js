@@ -1,14 +1,33 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-const Landing = () => {
-  return(
-    <div style={{ textAlign: 'center' }}>
-      <h2>
-        OMR Warehouse
-      </h2>
-      Find, add, analyze inventory...
-    </div>
-  )
+
+class Landing extends Component {
+  static propTypes = {
+    auth: PropTypes.object
+  }
+
+  render() {
+    if(this.props.auth === null) {
+      return <div></div>
+    } else {
+      return(
+        <div style={{ textAlign: 'center' }}>
+          <h2>
+            OMR Warehouse
+          </h2>
+          Find, add, analyze inventory...
+        </div>
+      )
+    }
+  }
 }
 
-export default Landing
+const mapStateToProps = ({ auth }) => {
+	return {
+		auth
+	}
+}
+
+export default connect(mapStateToProps)(Landing)

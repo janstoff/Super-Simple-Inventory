@@ -12,7 +12,8 @@ import ItemNew from './components/Items/ItemNew'
 
 class App extends Component {
   static propTypes = {
-    fetchUser: PropTypes.func
+    fetchUser: PropTypes.func,
+    auth: PropTypes.object
   }
 
   componentDidMount() {
@@ -20,13 +21,17 @@ class App extends Component {
   }
 
   render() {
+    const { auth } = this.props
+
+    const StartScreen = auth ? Dashboard : Landing
+
     return (
       <div>
         <BrowserRouter>
           <div style={{ margin: 5 }}>
-            <Header />
+            <Header auth={auth}/>
             <div className="container">
-              <Route exact path="/" component={Landing} />
+              <Route exact path="/" component={StartScreen} />
               <Route exact path="/items" component={Dashboard} />
               <Route path="/items/new" component={ItemNew} />
             </div>
@@ -37,4 +42,10 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions)(App)
+const mapStateToProps = ({ auth }) => {
+	return {
+		auth
+	}
+}
+
+export default connect(mapStateToProps, actions)(App)

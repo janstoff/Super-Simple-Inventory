@@ -10,7 +10,7 @@ import formFields from './formFields'
 class ItemForm extends Component {
 	static propTypes = {
 		handleSubmit: PropTypes.func, //from reduxForm
-    onItemSubmit: PropTypes.func
+    onItemSubmit: PropTypes.func //from ItemNew
 	}
 
 	render() {
@@ -54,6 +54,6 @@ function validate(values) {
 
 export default reduxForm({
 	validate,
-	form: 'surveyForm',
+	form: 'itemForm',
   destroyOnUnmount: false
 })(ItemForm)

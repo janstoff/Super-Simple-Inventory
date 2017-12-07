@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 class Header extends Component {
 	static propTypes = {
-		auth: PropTypes.any
+		auth: PropTypes.object
 	}
 
 	renderContent() {
-		switch (this.props.auth) {
+		const { auth } = this.props
+
+		switch (auth) {
 			case null:
 				return //nothing
 			case false:
@@ -20,6 +21,7 @@ class Header extends Component {
 				)
 			default:
       return [
+				<li key="user"><Link to={`/user/${auth._id}`}>{auth.userName}</Link></li>,
 				<li key="logout"><a href="/api/logout">Logout</a></li>
 			]
 		}
@@ -34,7 +36,7 @@ class Header extends Component {
             className="left brand-logo"
 						style={{ paddingLeft: 12 }}
             >
-              OMR Warehousing
+              Lager
           </Link>
 
 					<ul className="right">{this.renderContent()}</ul>
@@ -44,10 +46,4 @@ class Header extends Component {
 	}
 }
 
-const mapStateToProps = ({ auth }) => {
-	return {
-		auth
-	}
-}
-
-export default connect(mapStateToProps)(Header)
+export default (Header)

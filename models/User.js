@@ -4,7 +4,8 @@ const { Schema } = mongoose
 // create user Schema
 const userSchema = new Schema({
 	googleId: String,
-	credits: { type: Number, default: 0 }
+	userName: String,
+	email: String
 	// freely add properties here ...
 })
 

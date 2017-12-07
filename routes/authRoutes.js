@@ -18,7 +18,7 @@ module.exports = app => {
 		passport.authenticate('google'),
 
 		(req, res ) => {
-			res.redirect('/surveys')
+			res.redirect('/items')
 		}
 	)
 
