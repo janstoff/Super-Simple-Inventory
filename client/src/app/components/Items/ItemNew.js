@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 import { reduxForm } from 'redux-form'
 
-import ItemForm from './ItemForm'
-import ItemFormReview from './ItemFormReview'
+import ItemForm from './ItemForm/ItemForm'
+import ItemFormReview from './ItemForm/ItemFormReview'
 
 class ItemNew extends Component {
 	state = { showFormReview: false }
@@ -26,6 +26,6 @@ class ItemNew extends Component {
 }
 
 export default reduxForm({
-	form: 'surveyForm'
+	form: 'itemForm'
 	// destroyOnUnmount: true by default breaking the formValue persist when cancelling
 })(ItemNew)

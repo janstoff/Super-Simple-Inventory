@@ -2,15 +2,15 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const itemSchema = new Schema({
-	name: String,
+	itemName: String,
   category: String,
 	subCategory: String,
   warehouse: String,
+	rental: { type: Boolean, default: false },
   quantity: { type: Number, default: 0 },
-  minimumAvailableQuantity: { type: Number, default: null },
-  dateCreated: Date,
-  dateChanged: Date,
-	lastChangedBy: String
+  // dateCreated: Date,
+  // dateChanged: Date,
+	// lastChangedBy: String
 })
 
 mongoose.model('items', itemSchema)

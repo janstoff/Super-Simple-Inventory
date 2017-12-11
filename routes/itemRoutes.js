@@ -12,28 +12,30 @@ module.exports = app => {
 
 	app.post('/api/items', requireLogin, async (req, res) => {
 		const {
-			name,
+			itemName,
 			category,
 			subcategory,
 			warehouse,
+			rental,
 			quantity,
-			minimumAvailableQuantity
 		} = req.body
 
 		// Create an instance of a item in memory
 		const item = new Item({
-			name,
+			itemName,
 			category,
 			subCategory,
 			warehouse,
+			rental,
 			quantity,
-			minimumAvailableQuantity,
-			dateCreated: Date.now(),
-			lastChangedBy: Date.now(),
-			lastChangedBy: req.user.userName
+			// dateCreated: Date.now(),
+			// lastChangedBy: Date.now(),
+			// lastChangedBy: req.user.userName
 		})
 
 		try {
+			await item.save()
+
 			const user = await req.user.save()
 			res.send(user)
 		} catch (err) {

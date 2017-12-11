@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -9,6 +9,13 @@ import Landing from './components/Landing'
 import Dashboard from './components/Dashboard'
 import ItemNew from './components/Items/ItemNew'
 
+const PrivateRoute = ({ component: Component, auth, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    auth === null
+      ? <Redirect to='/' />
+      : <Component {...props}/>
+  )} />
+)
 
 class App extends Component {
   static propTypes = {
@@ -32,8 +39,8 @@ class App extends Component {
             <Header auth={auth}/>
             <div className="container">
               <Route exact path="/" component={StartScreen} />
-              <Route exact path="/items" component={Dashboard} />
-              <Route path="/items/new" component={ItemNew} />
+              <PrivateRoute exact path="/items" component={Dashboard} auth={auth} />
+              <PrivateRoute path="/items/new" component={ItemNew} auth={auth} />
             </div>
           </div>
         </BrowserRouter>
