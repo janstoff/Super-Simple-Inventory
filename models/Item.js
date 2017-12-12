@@ -8,9 +8,9 @@ const itemSchema = new Schema({
   warehouse: String,
 	rental: { type: Boolean, default: false },
   quantity: { type: Number, default: 0 },
-  // dateCreated: Date,
-  // dateChanged: Date,
-	// lastChangedBy: String
+  dateCreated: Date,
+  dateChanged: Date,
+	lastChangedBy: String
 })
 
 mongoose.model('items', itemSchema)

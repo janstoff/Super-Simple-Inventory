@@ -1,3 +1,4 @@
+import './style/style.css'
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -36,8 +37,8 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div style={{ margin: 5 }}>
-            <Header auth={auth}/>
-            <div className="container">
+            <Header auth={auth} />
+            <div className="container" style={{ marginTop: 15 }}>
               <Route exact path="/" component={StartScreen} />
               <PrivateRoute exact path="/items" component={Dashboard} auth={auth} />
               <PrivateRoute path="/items/new" component={ItemNew} auth={auth} />

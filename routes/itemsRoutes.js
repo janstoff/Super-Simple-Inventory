@@ -17,27 +17,25 @@ module.exports = app => {
 			subcategory,
 			warehouse,
 			rental,
-			quantity,
+			quantity
 		} = req.body
 
-		// Create an instance of a item in memory
+		// Create an instance of an item in memory
 		const item = new Item({
 			itemName,
 			category,
-			subCategory,
+			subcategory,
 			warehouse,
 			rental,
 			quantity,
-			// dateCreated: Date.now(),
-			// lastChangedBy: Date.now(),
-			// lastChangedBy: req.user.userName
+			dateCreated: Date.now(),
+			lastChangedBy: Date.now(),
+			lastChangedBy: req.user.userName
 		})
 
 		try {
 			await item.save()
-
-			const user = await req.user.save()
-			res.send(user)
+			res.send(item)
 		} catch (err) {
 			res.status(422).send(err)
 		}
