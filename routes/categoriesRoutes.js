@@ -15,7 +15,8 @@ module.exports = app => {
     const { name } = req.body
 
     const category = new Category({
-      name
+      name,
+			subcategories
     })
 
     try {

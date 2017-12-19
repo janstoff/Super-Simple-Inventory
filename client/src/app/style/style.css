@@ -1,3 +1,24 @@
+.dashboard-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-container {
+  margin-right: 20px;
+}
+
+.filter {
+  margin-bottom: 25px;
+}
+
+.filter-add {
+  display: flex;
+}
+
+.sub-category-container {
+  display: flex;
+}
+
 .collection-item {
   display: flex;
   justify-content: space-between;

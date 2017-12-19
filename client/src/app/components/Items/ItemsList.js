@@ -1,6 +1,7 @@
 // ItemsList displays items
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Collection, CollectionItem } from 'react-materialize'
 
 class ItemsList extends Component {
 	static propTypes = {
@@ -15,11 +16,10 @@ class ItemsList extends Component {
 		}
 
 		return (
-			<ul className="collection">
+			<Collection>
 				{items.map(item => {
 					return (
-						<li
-							className="collection-item"
+						<CollectionItem
 							key={item._id}
 							style={
 								item.rental ? { background: '#e7ecf4' } : { background: '#fff' }
@@ -30,10 +30,10 @@ class ItemsList extends Component {
 							<i>{item.warehouse}</i>
 							<i style={{ color: '#8a9dbd' }}>{item.rental ? 'rental' : ''}</i>
 							<i style={{ fontWeight: 500 }}>{item.quantity}</i>
-						</li>
+						</CollectionItem>
 					)
 				})}
-			</ul>
+			</Collection>
 		)
 	}
 }

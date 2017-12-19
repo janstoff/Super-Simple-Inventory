@@ -1,8 +1,12 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
+const subcategorySchema = require('./Subcategory')
+
+
 const categorySchema = new Schema({
-	name: String
+	name: String,
+	subcategories: [subcategorySchema]
 })
 
 mongoose.model('categories', categorySchema)

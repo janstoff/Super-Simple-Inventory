@@ -1,5 +1,6 @@
 // SurveyForm shows an input form for users to create a survey
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form' //enables component to access redux form functionality
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
@@ -12,27 +13,41 @@ const DROPDOWN_OPTIONS = ['Option1', 'Option2', 'Option3']
 
 class ItemForm extends Component {
 	static propTypes = {
+		submitting: PropTypes.bool,
+		invalid: PropTypes.bool,
+		location: PropTypes.object, //from React Router
 		handleSubmit: PropTypes.func, //from reduxForm
-		onItemSubmit: PropTypes.func //from ItemNew
+		onItemSubmit: PropTypes.func, //from ItemNew
+		categoriesSelection: PropTypes.array,
+		warehousesSelection: PropTypes.array,
 	}
 
 	render() {
-		const { submitting, invalid } = this.props
+		const {
+			submitting,
+			invalid,
+			location,
+			handleSubmit,
+			onItemSubmit,
+			categoriesSelection,
+			warehousesSelection
+		} = this.props
 
 		return (
 			<div>
 				<h5 style={{ marginTop: 25, marginBottom: 25 }}>
-					{this.props.location.pathname === '/items/new'
-						? 'Create'
-						: 'Edit'}{' '}
-					Item
+					{location.pathname === '/items/new' ? 'Create' : 'Edit'} Item
 				</h5>
-				<form onSubmit={this.props.handleSubmit(this.props.onItemSubmit)}>
-					<Field placeholder="Item" name="itemName" component={ItemFormTextField} />
+				<form onSubmit={handleSubmit(onItemSubmit)}>
+					<Field
+						placeholder="Item"
+						name="itemName"
+						component={ItemFormTextField}
+					/>
 					<Field
 						label="Category"
 						name="category"
-						dropdownOptions={DROPDOWN_OPTIONS}
+						dropdownOptions={categoriesSelection}
 						component={ItemFormDropdownSelect}
 					/>
 					<Field
@@ -44,7 +59,7 @@ class ItemForm extends Component {
 					<Field
 						label="Warehouse"
 						name="warehouse"
-						dropdownOptions={DROPDOWN_OPTIONS}
+						dropdownOptions={warehousesSelection}
 						component={ItemFormDropdownSelect}
 					/>
 					<Field
@@ -98,10 +113,19 @@ function validate(values) {
 	return errors //if errors empty form is considered valid
 }
 
-export default withRouter(
-	reduxForm({
-		validate,
-		form: 'itemForm',
-		destroyOnUnmount: false
-	})(ItemForm)
+function mapStateToProps({ categories, warehouses }) {
+	return {
+		categoriesSelection: categories.map(category => category.name),
+		warehousesSelection: warehouses.map(warehouse => warehouse.name)
+	}
+}
+
+export default connect(mapStateToProps)(
+	withRouter(
+		reduxForm({
+			validate,
+			form: 'itemForm',
+			destroyOnUnmount: false
+		})(ItemForm)
+	)
 )
