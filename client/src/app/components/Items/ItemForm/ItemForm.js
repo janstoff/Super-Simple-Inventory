@@ -5,7 +5,7 @@ import { reduxForm, Field } from 'redux-form' //enables component to access redu
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 
-import ItemFormTextField from './ItemFormTextField'
+import FormTextField from '../../_StandardComponents/FormTextField'
 import ItemFormDropdownSelect from './ItemFormDropdownSelect'
 import ItemFormSwitch from './ItemFormSwitch'
 
@@ -20,6 +20,17 @@ class ItemForm extends Component {
 		onItemSubmit: PropTypes.func, //from ItemNew
 		categoriesSelection: PropTypes.array,
 		warehousesSelection: PropTypes.array,
+	}
+
+	componentDidMount() {
+		this.handleInitialize()
+	}
+
+	handleInitialize() {
+		const initData = {
+			rental: true
+		}
+		this.props.initialize(initData)
 	}
 
 	render() {
@@ -42,7 +53,8 @@ class ItemForm extends Component {
 					<Field
 						placeholder="Item"
 						name="itemName"
-						component={ItemFormTextField}
+						style={{ marginBottom: 5 }}
+						component={FormTextField}
 					/>
 					<Field
 						label="Category"
@@ -70,8 +82,9 @@ class ItemForm extends Component {
 					<Field
 						placeholder="Quantity"
 						name="quantity"
+						style={{ marginBottom: 5 }}
 						parse={value => Number(value)}
-						component={ItemFormTextField}
+						component={FormTextField}
 					/>
 					<Link to="/items" className="red btn-flat white-text">
 						cancel

@@ -6,27 +6,8 @@ import { reduxForm, Field, FieldArray } from 'redux-form'
 import { withRouter } from 'react-router-dom'
 
 import * as actions from '../../actions'
+import FormTextField from '../_StandardComponents/FormTextField'
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-	<div>
-		<div>
-			<input {...input} type={type} placeholder={label} />
-		</div>
-	</div>
-)
-
-const renderSmallField = ({ input, label, type, meta: { touched, error } }) => (
-	<div>
-		<div>
-			<input
-				style={{ fontSize: 11 }}
-				{...input}
-				type={type}
-				placeholder={label}
-			/>
-		</div>
-	</div>
-)
 
 const renderSubCategories = ({ fields, meta: { error, submitFailed } }) => (
 	<ul className="sub-category-container">
@@ -49,8 +30,8 @@ const renderSubCategories = ({ fields, meta: { error, submitFailed } }) => (
   							style={{ fontSize: 10 }}
   							name={`${subCategory}.name`}
   							type="text"
-  							component={renderSmallField}
-  							label="sub-category name"
+  							component={FormTextField}
+  							placeholder="sub-category name"
   						/>
   					</div>
   					<Button
@@ -76,9 +57,8 @@ const renderCategories = ({ fields, meta: { error, submitFailed } }) => (
 					<div style={{ flex: 40, marginRight: 50 }}>
 						<Field
 							name={`${category}.name`}
-							type="text"
-							component={renderField}
-							label="Category Name"
+							component={FormTextField}
+							placeholder="Category Name"
 						/>
 					</div>
 					<Button
@@ -110,6 +90,14 @@ const renderCategories = ({ fields, meta: { error, submitFailed } }) => (
 )
 
 class EditCategories extends Component {
+	static propTypes = {
+		fetchCategories: PropTypes.func, //from actions
+		initialize: PropTypes.func, //from reduxForm
+		submitting: PropTypes.bool, //from reduxForm
+		pristine: PropTypes.bool, //from reduxForm
+		handleSubmit: PropTypes.func //from reduxForm
+	}
+
 	componentDidMount() {
 		this.props.fetchCategories().then(() => this.handleInitialize())
 	}
@@ -124,7 +112,7 @@ class EditCategories extends Component {
 	}
 
 	render() {
-		const { handleSubmit, pristine, reset, submitting } = this.props
+		const { handleSubmit, pristine, submitting } = this.props
 
 		return (
 			<form onSubmit={handleSubmit}>

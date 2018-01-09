@@ -6,7 +6,7 @@ import { reduxForm, Field } from 'redux-form'
 import { withRouter } from 'react-router-dom'
 
 import * as actions from '../../actions'
-import ItemFormTextField from '../Items/ItemForm/ItemFormTextField'
+import FormTextField from '../_StandardComponents/FormTextField'
 import Chip from '../_StandardComponents/Chip'
 
 class EditWarehouses extends Component {
@@ -44,7 +44,7 @@ class EditWarehouses extends Component {
 					<Field
 						placeholder="add..."
 						name="name"
-						component={ItemFormTextField}
+						component={FormTextField}
 						onKeyDown={this.onAdd}
 					/>
 					<div className="filter-selected-container">
