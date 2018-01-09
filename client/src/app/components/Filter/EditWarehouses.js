@@ -45,10 +45,11 @@ class EditWarehouses extends Component {
 						placeholder="add..."
 						name="name"
 						component={ItemFormTextField}
+						onKeyDown={this.onAdd}
 					/>
 					<div className="filter-selected-container">
 						<ul>
-							{warehouses.map(warehouse => <Chip>{warehouse.name}</Chip>)}
+							{warehouses.map(warehouse => <Chip key={warehouse.name}>{warehouse.name}</Chip>)}
 						</ul>
 					</div>
 					<button type="submit" className="teal btn-flat right white-text">

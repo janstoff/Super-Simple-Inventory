@@ -15,7 +15,7 @@ class Landing extends Component {
       return(
         <div style={{ textAlign: 'center' }}>
           <h2>
-            OMR Warehouse
+            OMR Inventory
           </h2>
           Find, add, analyze inventory...
         </div>

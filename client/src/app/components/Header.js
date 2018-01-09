@@ -31,7 +31,7 @@ class Header extends Component {
 
 	render() {
 		return (
-				<Navbar brand="Lager" right className="blue-grey darken-2" style={{ paddingLeft: 20 }}>
+				<Navbar brand="Inventory" right className="blue-grey darken-2" style={{ paddingLeft: 20 }}>
 					<Dropdown options={{belowOrigin: true, hover: true}} trigger={<Button>Settings</Button>}>
 						<Link to="/users" style={{ fontSize: 14, color: '#386b66' }}>users</Link>
 						<Link to="/categories" style={{ fontSize: 14, color: '#386b66' }}>categories</Link>

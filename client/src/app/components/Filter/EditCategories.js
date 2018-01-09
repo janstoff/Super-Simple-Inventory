@@ -54,12 +54,12 @@ const renderSubCategories = ({ fields, meta: { error, submitFailed } }) => (
   						/>
   					</div>
   					<Button
-  						style={{ flex: 1 }}
+  						style={{ padding: 0 }}
   						type="button"
   						className="red btn-flat right white-text"
   						onClick={() => fields.remove(index)}
   					>
-  						<Icon>delete</Icon>
+  						<Icon>remove</Icon>
   					</Button>
   				</div>
   			</li>
