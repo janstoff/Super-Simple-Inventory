@@ -1,3 +1,4 @@
+// ButtonSelectFilter enders a list of buttons which act as filters
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Icon } from 'react-materialize'

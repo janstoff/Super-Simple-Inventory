@@ -1,4 +1,4 @@
-// SurveyForm shows an input form for users to create a survey
+// ItemForm shows an input form for users to create a new Item Entry
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form' //enables component to access redux form functionality
@@ -6,8 +6,8 @@ import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 
 import FormTextField from '../../../_StandardComponents/FormTextField'
-import ItemFormDropdownSelect from './ItemFormDropdownSelect'
-import ItemFormSwitch from './ItemFormSwitch'
+import FormDropdownSelect from '../../../_StandardComponents/FormDropdownSelect'
+import ItemFormSwitch from '../../../_StandardComponents/FormSwitch'
 
 const DROPDOWN_OPTIONS = ['Option1', 'Option2', 'Option3']
 
@@ -28,7 +28,7 @@ class ItemForm extends Component {
 
 	handleInitialize() {
 		const initData = {
-			rental: true
+			rental: false
 		}
 		this.props.initialize(initData)
 	}
@@ -60,23 +60,28 @@ class ItemForm extends Component {
 						label="Category"
 						name="category"
 						dropdownOptions={categoriesSelection}
-						component={ItemFormDropdownSelect}
+						component={FormDropdownSelect}
+						style={{ marginBottom: 20, fontSize: 12 }}
 					/>
 					<Field
 						label="Sub-Category"
 						name="subcategory"
 						dropdownOptions={DROPDOWN_OPTIONS}
-						component={ItemFormDropdownSelect}
+						component={FormDropdownSelect}
+						style={{ marginBottom: 20, fontSize: 12 }}
 					/>
 					<Field
 						label="Warehouse"
 						name="warehouse"
 						dropdownOptions={warehousesSelection}
-						component={ItemFormDropdownSelect}
+						component={FormDropdownSelect}
+						style={{ marginBottom: 20, fontSize: 12 }}
 					/>
 					<Field
 						label="Is this item for use or for rent?"
 						name="rental"
+						ifFalse="USE"
+						ifTrue="RENT"
 						component={ItemFormSwitch}
 					/>
 					<Field

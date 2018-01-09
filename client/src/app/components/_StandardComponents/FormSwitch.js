@@ -1,8 +1,8 @@
-// ItemField contains logic to render a single text input
+// FormSwitch renders a form field as a switch between 2 options
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ItemFormSwitch = ({ input, label }) => {
+const FormSwitch = ({ input, label, ifFalse, ifTrue }) => {
   return(
     <div style={{ marginBottom: 15 }}>
       <div style={{ marginBottom: 5 }}>
@@ -10,19 +10,21 @@ const ItemFormSwitch = ({ input, label }) => {
       </div>
       <div className="switch">
         <label>
-          USE
+          {ifFalse}
           <input {...input} type="checkbox"/>
           <span className="lever"></span>
-          RENT
+          {ifTrue}
         </label>
       </div>
   </div>
   )
 }
 
-ItemFormSwitch.propTypes = {
+FormSwitch.propTypes = {
   input: PropTypes.object,
-  label: PropTypes.string
+  label: PropTypes.string,
+  ifFalse: PropTypes.string,
+  ifTrue: PropTypes.string,
 }
 
-export default ItemFormSwitch
+export default FormSwitch

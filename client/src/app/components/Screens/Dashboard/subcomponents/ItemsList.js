@@ -1,4 +1,4 @@
-// ItemsList displays items
+// ItemsList displays a collection of items
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Collection, CollectionItem } from 'react-materialize'

@@ -1,15 +1,15 @@
-// ItemField contains logic to render a single text input
+// FormDropdownSelect renders a dropdown selection form field
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 
-class ItemFormDropdownSelect extends Component {
+class FormDropdownSelect extends Component {
   renderSelectOptions = (option) => (
     <option key={option} value={option}>{option}</option>
   )
 
   render() {
-    const { input, label, dropdownOptions, meta: { error, touched }} = this.props
+    const { input, label, dropdownOptions, style, meta: { error, touched }} = this.props
 
     return(
       <div>
@@ -18,13 +18,13 @@ class ItemFormDropdownSelect extends Component {
             <option value="">Select</option>
             {dropdownOptions.map(this.renderSelectOptions)}
         </select>
-        <div className="red-text" style={{ marginBottom: 20, fontSize: 12 }} >{touched ? error : null}</div>
+        <div className="red-text" style={style} >{touched ? error : null}</div>
       </div>
     )
   }
 }
 
-ItemFormDropdownSelect.propTypes = {
+FormDropdownSelect.propTypes = {
   input: PropTypes.object,
   label: PropTypes.string,
   name: PropTypes.string,
@@ -33,4 +33,4 @@ ItemFormDropdownSelect.propTypes = {
   dropdownOptions: PropTypes.array
 }
 
-export default ItemFormDropdownSelect
+export default FormDropdownSelect
