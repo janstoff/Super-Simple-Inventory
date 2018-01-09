@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 class Landing extends Component {
   static propTypes = {
-    auth: PropTypes.object
+    auth: PropTypes.any
   }
 
   render() {

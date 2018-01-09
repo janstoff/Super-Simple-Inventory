@@ -6,7 +6,7 @@ import { Navbar, NavItem, Icon, Dropdown, Button } from 'react-materialize'
 
 class Header extends Component {
 	static propTypes = {
-		auth: PropTypes.object
+		auth: PropTypes.any
 	}
 
 	renderLogStatus() {
@@ -17,9 +17,7 @@ class Header extends Component {
 				return //nothing
 			case false:
 				return (
-					<NavItem>
-						<a href="/auth/google">Login with Google</a>
-					</NavItem>
+					<NavItem key="login" href="/auth/google">Login with Google</NavItem>
 				)
 			default:
       return [

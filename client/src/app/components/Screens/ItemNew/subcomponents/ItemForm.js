@@ -5,7 +5,7 @@ import { reduxForm, Field } from 'redux-form' //enables component to access redu
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 
-import FormTextField from '../../_StandardComponents/FormTextField'
+import FormTextField from '../../../_StandardComponents/FormTextField'
 import ItemFormDropdownSelect from './ItemFormDropdownSelect'
 import ItemFormSwitch from './ItemFormSwitch'
 

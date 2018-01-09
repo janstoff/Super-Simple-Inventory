@@ -6,13 +6,11 @@ import PropTypes from 'prop-types'
 
 import * as actions from './actions'
 import Header from './components/Header'
-import Landing from './components/Landing'
-import Dashboard from './components/Dashboard'
-import ItemNew from './components/Items/ItemNew'
-import EditWarehouses from './components/Filter/EditWarehouses'
-import EditCategories from './components/Filter/EditCategories'
-import CategoriesOverview from './components/Filter/CategoriesOverview'
-import EditCategory from './components/Filter/EditCategory'
+import Landing from './components/Screens/Landing'
+import Dashboard from './components/Screens/Dashboard/Dashboard'
+import ItemNew from './components/Screens/ItemNew/ItemNew'
+import EditWarehouses from './components/Screens/EditWarehouses/EditWarehouses'
+import EditCategories from './components/Screens/EditCategories/EditCategories'
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
 	<Route
@@ -24,7 +22,7 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => (
 class App extends Component {
 	static propTypes = {
 		fetchUser: PropTypes.func,
-		auth: PropTypes.object
+		auth: PropTypes.any
 	}
 
 	componentDidMount() {

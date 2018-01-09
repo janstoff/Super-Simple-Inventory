@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 import { reduxForm } from 'redux-form'
 
-import ItemForm from './ItemForm/ItemForm'
-import ItemFormReview from './ItemForm/ItemFormReview'
+import ItemForm from './subcomponents/ItemForm'
+import ItemNewReview from '../ItemNewReview/ItemNewReview'
 
 class ItemNew extends Component {
 	state = { showFormReview: false }
@@ -11,7 +11,7 @@ class ItemNew extends Component {
 	render() {
 		if (this.state.showFormReview) {
 			return (
-				<ItemFormReview
+				<ItemNewReview
 					onCancel={() => this.setState({ showFormReview: false })}
 				/>
 			)

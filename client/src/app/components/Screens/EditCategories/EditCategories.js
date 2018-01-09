@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 import { reduxForm, Field, FieldArray } from 'redux-form'
 import { withRouter } from 'react-router-dom'
 
-import * as actions from '../../actions'
-import FormTextField from '../_StandardComponents/FormTextField'
+import * as actions from '../../../actions'
+import FormTextField from '../../_StandardComponents/FormTextField'
 
 
 const renderSubCategories = ({ fields, meta: { error, submitFailed } }) => (

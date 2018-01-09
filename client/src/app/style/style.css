@@ -4,7 +4,11 @@
 }
 
 .filter-container {
-  margin-right: 20px;
+  flex: 1;
+}
+
+.items-container {
+  flex: 4;
 }
 
 .filter {

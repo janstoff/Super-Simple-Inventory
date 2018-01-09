@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import * as actions from '../actions'
-import ItemsList from './Items/ItemsList'
-import ButtonSelectFilter from './Filter/ButtonSelectFilter'
+import * as actions from '../../../actions'
+import ItemsList from './subcomponents/ItemsList'
+import ButtonSelectFilter from '../../_StandardComponents/ButtonSelectFilter'
 
 class Dashboard extends Component {
 	static propTypes = {
@@ -43,7 +43,7 @@ class Dashboard extends Component {
 							editRoute="/categories"
 						/>
 					</div>
-					<div className="items-list">
+					<div className="items-container">
 						<ItemsList items={items} />
 					</div>
 				</div>

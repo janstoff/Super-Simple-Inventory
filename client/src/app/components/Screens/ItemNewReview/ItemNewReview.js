@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 
 import * as actions from '../../../actions'
 
-const ItemFormReview = ({ onCancel, formValues, submitItem, history }) => {
+const ItemNewReview = ({ onCancel, formValues, submitItem, history }) => {
 	return (
 		<div>
 			<h5 style={{ marginBottom: 30 }}>Review your entry before saving...</h5>
@@ -31,7 +31,7 @@ const ItemFormReview = ({ onCancel, formValues, submitItem, history }) => {
 	)
 }
 
-ItemFormReview.propTypes = {
+ItemNewReview.propTypes = {
 	onCancel: PropTypes.func, // from ItemNew
   formValues: PropTypes.object, //from reduxForm state
   submitItem: PropTypes.func,// from actions
@@ -44,4 +44,4 @@ function mapStateToProps({ form }) {
   }
 }
 
-export default connect(mapStateToProps, actions)(withRouter(ItemFormReview))
+export default connect(mapStateToProps, actions)(withRouter(ItemNewReview))
