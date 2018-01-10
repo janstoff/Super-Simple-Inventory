@@ -1,3 +1,7 @@
+.app-body {
+  margin: 2%;
+}
+
 .dashboard-body {
   display: flex;
   justify-content: space-between;

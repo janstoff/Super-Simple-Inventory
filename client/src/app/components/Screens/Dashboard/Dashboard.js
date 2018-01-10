@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import * as actions from '../../../actions'
 import ItemsList from './subcomponents/ItemsList'
-import ButtonSelectFilter from '../../_StandardComponents/ButtonSelectFilter'
+import ButtonSelectFilter from '../../standard/ButtonSelectFilter'
 
 class Dashboard extends Component {
 	static propTypes = {

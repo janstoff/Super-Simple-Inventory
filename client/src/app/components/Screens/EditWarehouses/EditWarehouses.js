@@ -6,8 +6,8 @@ import { reduxForm, Field } from 'redux-form'
 import { withRouter } from 'react-router-dom'
 
 import * as actions from '../../../actions'
-import FormTextField from '../../_StandardComponents/FormTextField'
-import Chip from '../../_StandardComponents/Chip'
+import FormTextField from '../../standard/FormTextField'
+import Chip from '../../standard/Chip'
 
 class EditWarehouses extends Component {
 	static propTypes = {

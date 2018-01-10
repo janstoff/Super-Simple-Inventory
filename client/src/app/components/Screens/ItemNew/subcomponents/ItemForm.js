@@ -5,9 +5,9 @@ import { reduxForm, Field } from 'redux-form' //enables component to access redu
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 
-import FormTextField from '../../../_StandardComponents/FormTextField'
-import FormDropdownSelect from '../../../_StandardComponents/FormDropdownSelect'
-import ItemFormSwitch from '../../../_StandardComponents/FormSwitch'
+import FormTextField from '../../../standard/FormTextField'
+import FormDropdownSelect from '../../../standard/FormDropdownSelect'
+import ItemFormSwitch from '../../../standard/FormSwitch'
 
 const DROPDOWN_OPTIONS = ['Option1', 'Option2', 'Option3']
 

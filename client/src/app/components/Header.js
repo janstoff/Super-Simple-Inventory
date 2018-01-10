@@ -29,10 +29,11 @@ class Header extends Component {
 
 	render() {
 		return (
-				<Navbar brand="Inventory" right className="blue-grey darken-2" style={{ paddingLeft: 20 }}>
+				<Navbar brand="Simple Inventory" right className="blue-grey darken-2" style={{ paddingLeft: 20 }}>
 					<Dropdown options={{belowOrigin: true, hover: true}} trigger={<Button>Settings</Button>}>
 						<Link to="/users" style={{ fontSize: 14, color: '#386b66' }}>users</Link>
 						<Link to="/categories" style={{ fontSize: 14, color: '#386b66' }}>categories</Link>
+						<Link to="/warehouses" style={{ fontSize: 14, color: '#386b66' }}>warehouses</Link>
 					</Dropdown>
 					<NavItem href='get-started.html'><Icon>refresh</Icon></NavItem>
 					{this.renderLogStatus()}

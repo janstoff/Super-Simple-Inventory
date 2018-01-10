@@ -6,11 +6,11 @@ import PropTypes from 'prop-types'
 
 import * as actions from './actions'
 import Header from './components/Header'
-import Landing from './components/Screens/Landing'
-import Dashboard from './components/Screens/Dashboard/Dashboard'
-import ItemNew from './components/Screens/ItemNew/ItemNew'
-import EditWarehouses from './components/Screens/EditWarehouses/EditWarehouses'
-import EditCategories from './components/Screens/EditCategories/EditCategories'
+import Landing from './components/screens/Landing'
+import Dashboard from './components/screens/Dashboard/Dashboard'
+import ItemNew from './components/screens/ItemNew/ItemNew'
+import EditWarehouses from './components/screens/EditWarehouses/EditWarehouses'
+import EditCategories from './components/screens/EditCategories/EditCategories'
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
 	<Route
@@ -38,7 +38,7 @@ class App extends Component {
 			<BrowserRouter>
 				<div>
 					<Header auth={auth} />
-					<div className="container" style={{ marginTop: 15 }}>
+					<div className="app-body" style={{ marginTop: 15 }}>
 						<Route exact path="/" component={StartScreen} />
 						<PrivateRoute
 							exact
