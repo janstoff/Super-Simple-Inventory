@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Navbar, NavItem, Icon, Dropdown, Button } from 'react-materialize'
 
-
 class Header extends Component {
 	static propTypes = {
 		auth: PropTypes.any
@@ -35,11 +34,11 @@ class Header extends Component {
 						<Link to="/categories" style={{ fontSize: 14, color: '#386b66' }}>categories</Link>
 						<Link to="/warehouses" style={{ fontSize: 14, color: '#386b66' }}>warehouses</Link>
 					</Dropdown>
-					<NavItem href='get-started.html'><Icon>refresh</Icon></NavItem>
+					<NavItem href='/items'><Icon>refresh</Icon></NavItem>
 					{this.renderLogStatus()}
 				</Navbar>
 		)
 	}
 }
 
-export default (Header)
+export default Header

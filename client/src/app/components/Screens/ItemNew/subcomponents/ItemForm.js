@@ -19,7 +19,11 @@ class ItemForm extends Component {
 		handleSubmit: PropTypes.func, //from reduxForm
 		onItemSubmit: PropTypes.func, //from ItemNew
 		categoriesSelection: PropTypes.array,
-		warehousesSelection: PropTypes.array,
+		warehousesSelection: PropTypes.array
+	}
+
+	state = {
+		selectedCategory: ''
 	}
 
 	componentDidMount() {
@@ -33,8 +37,17 @@ class ItemForm extends Component {
 		this.props.initialize(initData)
 	}
 
+	handleCategorySelection(selectedCategory) {
+		this.setState(state => {
+			return {
+				selectedCategory: selectedCategory
+			}
+		})
+	}
+
 	render() {
 		const {
+			categories,
 			submitting,
 			invalid,
 			location,
@@ -44,8 +57,19 @@ class ItemForm extends Component {
 			warehousesSelection
 		} = this.props
 
+		const { selectedCategory } = this.state
+
+		let subcategorySelection
+		if (selectedCategory) {
+			subcategorySelection = categories.filter(category => category.name === selectedCategory).map(category => category.subcategories)
+		} else {
+			subcategorySelection = []
+		}
+
+		console.log(subcategorySelection)
+
 		return (
-			<div>
+			<div className="container">
 				<h5 style={{ marginTop: 25, marginBottom: 25 }}>
 					{location.pathname === '/items/new' ? 'Create' : 'Edit'} Item
 				</h5>
@@ -61,11 +85,13 @@ class ItemForm extends Component {
 						name="category"
 						dropdownOptions={categoriesSelection}
 						component={FormDropdownSelect}
+						onChange={event => this.handleCategorySelection(event.target.value)}
 						style={{ marginBottom: 20, fontSize: 12 }}
 					/>
 					<Field
 						label="Sub-Category"
 						name="subcategory"
+						// disabled={form.itemForm.values.category ? false : true}
 						dropdownOptions={DROPDOWN_OPTIONS}
 						component={FormDropdownSelect}
 						style={{ marginBottom: 20, fontSize: 12 }}
@@ -117,9 +143,6 @@ function validate(values) {
 	if (!values.category) {
 		errors.category = 'Please select an item category.'
 	}
-	if (!values.subcategory) {
-		errors.subcategory = 'Please select an item category.'
-	}
 	if (!values.warehouse) {
 		errors.warehouse =
 			'Please select which warehoues this item will be stored in.'
@@ -133,6 +156,7 @@ function validate(values) {
 
 function mapStateToProps({ categories, warehouses }) {
 	return {
+		categories,
 		categoriesSelection: categories.map(category => category.name),
 		warehousesSelection: warehouses.map(warehouse => warehouse.name)
 	}

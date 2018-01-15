@@ -9,12 +9,12 @@ class FormDropdownSelect extends Component {
   )
 
   render() {
-    const { input, label, dropdownOptions, style, meta: { error, touched }} = this.props
+    const { input, label, dropdownOptions, style, disabled, meta: { error, touched }} = this.props
 
     return(
       <div>
         <label>{label}</label>
-        <select className="browser-default" {...input}>
+        <select className="browser-default" disabled={disabled} {...input}>
             <option value="">Select</option>
             {dropdownOptions.map(this.renderSelectOptions)}
         </select>

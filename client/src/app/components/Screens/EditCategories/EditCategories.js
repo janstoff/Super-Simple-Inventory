@@ -8,7 +8,6 @@ import { withRouter } from 'react-router-dom'
 import * as actions from '../../../actions'
 import FormTextField from '../../standard/FormTextField'
 
-
 const renderSubCategories = ({ fields, meta: { error, submitFailed } }) => (
 	<ul className="sub-category-container">
 		<div style={{ flex: 1 }}>
@@ -21,31 +20,31 @@ const renderSubCategories = ({ fields, meta: { error, submitFailed } }) => (
 				add sub-category
 			</Button>
 		</div>
-    <div style={{ flex: 3 }}>
-      {fields.map((subCategory, index) => (
-  			<li key={index}>
-  				<div className="filter-add">
-  					<div style={{ flex: 40, marginRight: 50 }}>
-  						<Field
-  							style={{ fontSize: 10 }}
-  							name={`${subCategory}.name`}
-  							type="text"
-  							component={FormTextField}
-  							placeholder="sub-category name"
-  						/>
-  					</div>
-  					<Button
-  						style={{ padding: 0 }}
-  						type="button"
-  						className="red btn-flat right white-text"
-  						onClick={() => fields.remove(index)}
-  					>
-  						<Icon>remove</Icon>
-  					</Button>
-  				</div>
-  			</li>
-      ))}
-    </div>
+		<div style={{ flex: 3 }}>
+			{fields.map((subcategory, index) => (
+				<li key={index}>
+					<div className="filter-add">
+						<div style={{ flex: 40, marginRight: 50 }}>
+							<Field
+								style={{ fontSize: 11 }}
+								name={`${subcategory}.name`}
+								type="text"
+								component={FormTextField}
+								placeholder="sub-category name"
+							/>
+						</div>
+						<Button
+							style={{ padding: 0 }}
+							type="button"
+							className="red btn-flat right white-text"
+							onClick={() => fields.remove(index)}
+						>
+							<Icon>remove</Icon>
+						</Button>
+					</div>
+				</li>
+			))}
+		</div>
 	</ul>
 )
 
@@ -71,7 +70,7 @@ const renderCategories = ({ fields, meta: { error, submitFailed } }) => (
 					</Button>
 				</div>
 				<FieldArray
-					name={`${category}.subCategories`}
+					name={`${category}.subcategories`}
 					component={renderSubCategories}
 				/>
 			</li>
@@ -115,27 +114,20 @@ class EditCategories extends Component {
 		const { handleSubmit, pristine, submitting } = this.props
 
 		return (
-			<form onSubmit={handleSubmit}>
-				<FieldArray name="categories" component={renderCategories} />
-				<Button
-					className="right"
-					type="submit"
-					disabled={submitting || pristine}
-				>
-					<Icon>save</Icon>
-				</Button>
-			</form>
+			<div className="container">
+				<form onSubmit={handleSubmit}>
+					<FieldArray name="categories" component={renderCategories} />
+					<Button
+						className="right"
+						type="submit"
+						disabled={submitting || pristine}
+					>
+						<Icon>save</Icon>
+					</Button>
+				</form>
+			</div>
 		)
 	}
-}
-
-function validate(values) {
-	const errors = {}
-
-	if (!values.name) {
-		errors.itemName = 'You have not entered anything yet.'
-	}
-	return errors
 }
 
 function mapStateToProps({ categories }) {

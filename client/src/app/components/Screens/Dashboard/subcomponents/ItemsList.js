@@ -17,7 +17,13 @@ class ItemsList extends Component {
 
 		return (
 			<div>
-				<p style={{ fontWeight: 600 }}>INVENTORY</p>
+				<p className="item-list-header" style={{ color: '#d4d2d2' }}>
+					<i className="item-property" style={{ fontWeight: 600 }}>item</i>
+					<i className="item-property">category</i>
+					<i className="item-property">location</i>
+					<i className="item-property">usage</i>
+					<i className="item-quantity" style={{ fontWeight: 500 }}>quantity</i>
+				</p>
 				<Collection>
 					{items.map(item => {
 						return (
@@ -27,11 +33,11 @@ class ItemsList extends Component {
 									item.rental ? { background: '#e7ecf4' } : { background: '#fff' }
 								}
 							>
-								<i style={{ fontWeight: 600 }}>{item.itemName}</i>
-								<i>{item.category}</i>
-								<i>{item.warehouse}</i>
-								<i style={{ color: '#8a9dbd' }}>{item.rental ? 'rental' : ''}</i>
-								<i style={{ fontWeight: 500 }}>{item.quantity}</i>
+								<i className="item-property" style={{ fontWeight: 600 }}>{item.itemName}</i>
+								<i className="item-property">{item.category}</i>
+								<i className="item-property">{item.warehouse}</i>
+								<i className="item-property" style={{ color: '#8a9dbd' }}>{item.rental ? 'rental' : ''}</i>
+								<i className="item-quantity" style={{ fontWeight: 500 }}>{item.quantity}</i>
 							</CollectionItem>
 						)
 					})}

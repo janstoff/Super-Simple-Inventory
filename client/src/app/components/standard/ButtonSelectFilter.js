@@ -1,7 +1,7 @@
 // ButtonSelectFilter enders a list of buttons which act as filters
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Icon } from 'react-materialize'
+import { Button } from 'react-materialize'
 import { Link } from 'react-router-dom'
 
 class ButtonSelectFilter extends Component {
@@ -10,7 +10,8 @@ class ButtonSelectFilter extends Component {
 		filterItems: PropTypes.array,
 		buttonColor: PropTypes.string,
 		editButtonColor: PropTypes.string,
-		editRoute: PropTypes.string
+		editRoute: PropTypes.string,
+		onFilterSelect: PropTypes.func
 	}
 
 	render() {
@@ -19,7 +20,8 @@ class ButtonSelectFilter extends Component {
 			filterItems,
 			buttonColor,
 			editButtonColor,
-			editRoute
+			editRoute,
+			onFilterSelect
 		} = this.props
 
 		return (
@@ -30,8 +32,10 @@ class ButtonSelectFilter extends Component {
 						<li key={item}>
 							<Button
 								waves="light"
+								value={item}
 								className={buttonColor}
 								style={{ marginBottom: 5 }}
+								onClick={(event) => onFilterSelect(title, event.target.value)}
 							>
 								{item}
 							</Button>

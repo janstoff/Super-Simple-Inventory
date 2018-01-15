@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Icon } from 'react-materialize'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import { withRouter } from 'react-router-dom'
@@ -38,7 +37,7 @@ class EditWarehouses extends Component {
 		} = this.props
 
 		return (
-			<div className="edit-filters-container">
+			<div className="container">
 				<h5 style={{ marginTop: 25, marginBottom: 25 }}>edit your warehouses</h5>
 				<form onSubmit={handleSubmit(this.onAdd)}>
 					<Field
@@ -60,15 +59,6 @@ class EditWarehouses extends Component {
 			</div>
 		)
 	}
-}
-
-function validate(values) {
-	const errors = {}
-
-	if (!values.name) {
-		errors.itemName = 'You have not entered anything yet.'
-	}
-	return errors
 }
 
 function mapStateToProps({ warehouses }) {

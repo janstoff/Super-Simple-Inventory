@@ -2,17 +2,22 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 
 import * as actions from '../../../actions'
 import ItemsList from './subcomponents/ItemsList'
 import ButtonSelectFilter from '../../standard/ButtonSelectFilter'
+import SearchBar from '../../standard/SearchBar'
 
 class Dashboard extends Component {
 	static propTypes = {
 		warehouses: PropTypes.array,
 		fetchItems: PropTypes.func,
 		fetchCategories: PropTypes.func,
-		fetchWarehouses: PropTypes.func
+		fetchWarehouses: PropTypes.func,
+		filterText: PropTypes.string,
+		handleSearchInput: PropTypes.func
 	}
 
 	componentDidMount() {
@@ -22,7 +27,22 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		const { items, categories, warehouses } = this.props
+		const {
+			items,
+			categories,
+			warehouses,
+			filterText,
+			handleSearchInput,
+			handleFilterSelect
+		} = this.props
+
+		let showingItems
+		if (filterText) {
+			const match = new RegExp(escapeRegExp(filterText), 'i' /*ignore case*/)
+			showingItems = items.filter(item => match.test(item.itemName))
+		} else {
+			showingItems = items
+		}
 
 		return (
 			<div>
@@ -34,6 +54,7 @@ class Dashboard extends Component {
 							buttonColor="brown darken-1"
 							editButtonColor="brown lighten-4"
 							editRoute="/warehouses"
+							onFilterSelect={handleFilterSelect}
 						/>
 						<ButtonSelectFilter
 							title="Categories"
@@ -41,10 +62,18 @@ class Dashboard extends Component {
 							buttonColor="cyan darken-3"
 							editButtonColor="cyan lighten-4"
 							editRoute="/categories"
+							onFilterSelect={handleFilterSelect}
 						/>
 					</div>
 					<div className="items-container">
-						<ItemsList items={items} />
+						<div style={{ fontWeight: 600 }}>INVENTORY</div>
+						<SearchBar
+							className="search-bar"
+							items={items}
+							filterText={filterText}
+							onSearchInput={handleSearchInput}
+						/>
+						<ItemsList items={showingItems} />
 					</div>
 				</div>
 				<div className="fixed-action-btn">
@@ -57,11 +86,39 @@ class Dashboard extends Component {
 	}
 }
 
-function mapStateToProps({ items, categories, warehouses }) {
+function mapStateToProps({ items, categories, warehouses, filters }) {
+	let filteredByLocation
+	if (filters.warehouse) {
+		filteredByLocation = items.filter(
+			item => item.warehouse === filters.warehouse
+		)
+	} else {
+		filteredByLocation = items
+	}
+
+	let filteredByLocationAndCategory
+	if (filters.category) {
+		filteredByLocationAndCategory = filteredByLocation.filter(
+			item => item.category === filters.category
+		)
+	} else {
+		filteredByLocationAndCategory = filteredByLocation
+	}
+
+	let filteredByLocationAndCategoryAndSubcategory
+	if (filters.category && filters.subcategory) {
+		filteredByLocationAndCategoryAndSubcategory = filteredByLocationAndCategory.filter(
+			item => item.subcategory === filters.subcategory
+		)
+	} else {
+		filteredByLocationAndCategoryAndSubcategory = filteredByLocationAndCategory
+	}
+
 	return {
-		items,
+		items: filteredByLocationAndCategoryAndSubcategory,
 		categories: categories.map(category => category.name),
-		warehouses: warehouses.map(warehouse => warehouse.name)
+		warehouses: warehouses.map(warehouse => warehouse.name),
+		filterText: filters.filterText
 	}
 }
 
