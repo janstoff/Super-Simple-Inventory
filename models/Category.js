@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const subcategorySchema = require('./Subcategory')
+const subcategorySchema = require('./SubCategory')
 
 
 const categorySchema = new Schema({
