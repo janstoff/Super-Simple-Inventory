@@ -12,7 +12,7 @@ const renderSubCategories = ({ fields, meta: { error, submitFailed } }) => (
 	<ul className="sub-category-container">
 		<div style={{ flex: 1 }}>
 			<Button
-				className="cyan darken-1"
+				className="cyan lighten-3"
 				style={{ marginBottom: 25, fontSize: 10 }}
 				type="button"
 				onClick={() => fields.push({})}
@@ -26,7 +26,7 @@ const renderSubCategories = ({ fields, meta: { error, submitFailed } }) => (
 					<div className="filter-add">
 						<div style={{ flex: 40, marginRight: 50 }}>
 							<Field
-								style={{ fontSize: 11 }}
+								style={{ fontSize: 13 }}
 								name={`${subcategory}.name`}
 								type="text"
 								component={FormTextField}
@@ -117,13 +117,13 @@ class EditCategories extends Component {
 			<div className="container">
 				<form onSubmit={handleSubmit}>
 					<FieldArray name="categories" component={renderCategories} />
-					<Button
-						className="right"
+					<button
 						type="submit"
+						className="teal btn-flat right white-text"
 						disabled={submitting || pristine}
-					>
-						<Icon>save</Icon>
-					</Button>
+						>Save
+						<i className="material-icons right">save</i>
+					</button>
 				</form>
 			</div>
 		)

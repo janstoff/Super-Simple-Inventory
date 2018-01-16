@@ -20,10 +20,10 @@ const ItemNewReview = ({ onCancel, formValues, submitItem, history }) => {
 						<div style={{ marginBottom: 10 }}>Quantity: {formValues.quantity}</div>
           </div>
       </div>
-			<button className="yellow darken-3 white-text btn-flat" onClick={onCancel}>
+			<button className="amber lighten-2 gray-text text-lighten-3 btn-flat" onClick={onCancel}>
 				Back
 			</button>
-      <button className="green white-text btn-flat right " onClick={() => submitItem(formValues, history)}>
+      <button className="teal white-text btn-flat right " onClick={() => submitItem(formValues, history)}>
 				Save
         <i className="material-icons right">save</i>
 			</button>

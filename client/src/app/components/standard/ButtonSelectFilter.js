@@ -25,7 +25,7 @@ class ButtonSelectFilter extends Component {
 		} = this.props
 
 		return (
-			<div className="filter">
+			<div className="button-select-filter">
 				<p style={{ fontWeight: 600 }}>{title}</p>
 				<ul>
 					{filterItems.map(item => (
@@ -33,7 +33,7 @@ class ButtonSelectFilter extends Component {
 							<Button
 								waves="light"
 								value={item}
-								className={buttonColor}
+								className={`filter-button ${buttonColor}`}
 								style={{ marginBottom: 5 }}
 								onClick={(event) => onFilterSelect(title, event.target.value)}
 							>

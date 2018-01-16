@@ -28,6 +28,7 @@ class ItemsList extends Component {
 					{items.map(item => {
 						return (
 							<CollectionItem
+								className="items-list"
 								key={item._id}
 								style={
 									item.rental ? { background: '#e7ecf4' } : { background: '#fff' }

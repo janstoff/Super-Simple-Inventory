@@ -7,17 +7,21 @@ import sortBy from 'sort-by'
 
 import * as actions from '../../../actions'
 import ItemsList from './subcomponents/ItemsList'
-import ButtonSelectFilter from '../../standard/ButtonSelectFilter'
 import SearchBar from '../../standard/SearchBar'
+import FilterWeb from './subcomponents/FilterWeb'
+import FilterMobile from './subcomponents/FilterMobile'
 
 class Dashboard extends Component {
 	static propTypes = {
+		items: PropTypes.array,
 		warehouses: PropTypes.array,
+		categories: PropTypes.array,
 		fetchItems: PropTypes.func,
 		fetchCategories: PropTypes.func,
 		fetchWarehouses: PropTypes.func,
-		filterText: PropTypes.string,
-		handleSearchInput: PropTypes.func
+		filters: PropTypes.object,
+		handleSearchInput: PropTypes.func,
+		clearFilters: PropTypes.func
 	}
 
 	componentDidMount() {
@@ -31,10 +35,11 @@ class Dashboard extends Component {
 			items,
 			categories,
 			warehouses,
-			filterText,
 			handleSearchInput,
 			handleFilterSelect
 		} = this.props
+
+		const { filterText, warehouse, category } = this.props.filters
 
 		let showingItems
 		if (filterText) {
@@ -47,24 +52,24 @@ class Dashboard extends Component {
 		return (
 			<div>
 				<div className="dashboard-body">
-					<div className="filter-container">
-						<ButtonSelectFilter
-							title="Locations"
-							filterItems={warehouses}
-							buttonColor="brown darken-1"
-							editButtonColor="brown lighten-4"
-							editRoute="/warehouses"
-							onFilterSelect={handleFilterSelect}
-						/>
-						<ButtonSelectFilter
-							title="Categories"
-							filterItems={categories}
-							buttonColor="cyan darken-3"
-							editButtonColor="cyan lighten-4"
-							editRoute="/categories"
-							onFilterSelect={handleFilterSelect}
-						/>
-					</div>
+					<FilterWeb
+						warehouses={warehouses}
+						categories={categories}
+						onFilterSelect={handleFilterSelect}
+					/>
+					<FilterMobile
+						warehouses={warehouses}
+						categories={categories}
+						onFilterSelect={handleFilterSelect}
+					/>
+					{/* <div className="clear-filter">
+						{filterText || warehouse || category && (
+								<button className="red white-text btn-flat " onClick={() => this.props.clearFilters()}>
+									Clear Filters
+								</button>
+							)
+						}
+					</div> */}
 					<div className="items-container">
 						<div style={{ fontWeight: 600 }}>INVENTORY</div>
 						<SearchBar
@@ -118,7 +123,7 @@ function mapStateToProps({ items, categories, warehouses, filters }) {
 		items: filteredByLocationAndCategoryAndSubcategory,
 		categories: categories.map(category => category.name),
 		warehouses: warehouses.map(warehouse => warehouse.name),
-		filterText: filters.filterText
+		filters
 	}
 }
 

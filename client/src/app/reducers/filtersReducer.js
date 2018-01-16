@@ -2,6 +2,7 @@ import { HANDLE_SEARCH } from '../actions/filtersActions'
 import { HANDLE_LOCATION_SELECT } from '../actions/filtersActions'
 import { HANDLE_CATEGORY_SELECT } from '../actions/filtersActions'
 import { HANDLE_SUBCATEGORY_SELECT } from '../actions/filtersActions'
+import { CLEAR_FILTERS } from '../actions/filtersActions'
 
 const initialState = {
 	filterText: '',
@@ -32,6 +33,14 @@ export default function(state = initialState, action) {
 				...state,
 				subcategory: action.payload
 			}
+		case CLEAR_FILTERS:
+		return {
+			...state,
+			filterText: action.payload,
+			warehouse: action.payload,
+			category: action.payload,
+			subcategory: action.payload
+		}
 		default:
 			return state
 	}

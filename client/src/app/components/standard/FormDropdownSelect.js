@@ -4,6 +4,15 @@ import PropTypes from 'prop-types'
 
 
 class FormDropdownSelect extends Component {
+  static propTypes = {
+    input: PropTypes.object,
+    label: PropTypes.string,
+    name: PropTypes.string,
+    error: PropTypes.object,
+    touched: PropTypes.object,
+    dropdownOptions: PropTypes.array
+  }
+
   renderSelectOptions = (option) => (
     <option key={option} value={option}>{option}</option>
   )
@@ -22,15 +31,6 @@ class FormDropdownSelect extends Component {
       </div>
     )
   }
-}
-
-FormDropdownSelect.propTypes = {
-  input: PropTypes.object,
-  label: PropTypes.string,
-  name: PropTypes.string,
-  error: PropTypes.object,
-  touched: PropTypes.object,
-  dropdownOptions: PropTypes.array
 }
 
 export default FormDropdownSelect
