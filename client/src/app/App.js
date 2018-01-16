@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 import * as actions from './actions'
 import Header from './components/Header'
-import Landing from './components/screens/Landing'
+import Landing from './components/screens/Landing/Landing'
 import Dashboard from './components/screens/Dashboard/Dashboard'
 import ItemNew from './components/screens/ItemNew/ItemNew'
 import EditWarehouses from './components/screens/EditWarehouses/EditWarehouses'
