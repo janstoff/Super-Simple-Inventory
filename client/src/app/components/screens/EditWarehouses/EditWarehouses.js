@@ -13,7 +13,7 @@ const renderWarehouses = ({ fields, meta: { error, submitFailed } }) => (
 	<ul>
 		{fields.map((warehouse, index) => (
 			<li key={index} style={{ marginTop: 25 }}>
-				<div className="filter-add">
+				<div className="edit-filter-items-container">
 					<div style={{ flex: 40, marginRight: 50 }}>
 						<Field
 							name={`${warehouse}.name`}

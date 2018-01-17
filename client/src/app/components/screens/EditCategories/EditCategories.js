@@ -12,7 +12,7 @@ const renderSubCategories = ({ fields, meta: { error, submitFailed } }) => (
 	<ul className="sub-category-container">
 		<div style={{ flex: 1 }}>
 			<Button
-				className="cyan lighten-3"
+				className="add-subcat-button cyan lighten-3"
 				style={{ marginBottom: 25, fontSize: 10 }}
 				type="button"
 				onClick={() => fields.push({})}
@@ -23,7 +23,7 @@ const renderSubCategories = ({ fields, meta: { error, submitFailed } }) => (
 		<div style={{ flex: 3 }}>
 			{fields.map((subcategory, index) => (
 				<li key={index}>
-					<div className="filter-add">
+					<div className="edit-filter-items-container">
 						<div style={{ flex: 40, marginRight: 50 }}>
 							<Field
 								style={{ fontSize: 13 }}

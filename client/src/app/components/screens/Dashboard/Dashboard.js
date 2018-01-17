@@ -52,24 +52,26 @@ class Dashboard extends Component {
 		return (
 			<div>
 				<div className="dashboard-body">
-					<FilterWeb
-						warehouses={warehouses}
-						categories={categories}
-						onFilterSelect={handleFilterSelect}
-					/>
-					<FilterMobile
-						warehouses={warehouses}
-						categories={categories}
-						onFilterSelect={handleFilterSelect}
-					/>
-					{/* <div className="clear-filter">
-						{filterText || warehouse || category && (
-								<button className="red white-text btn-flat " onClick={() => this.props.clearFilters()}>
-									Clear Filters
-								</button>
-							)
-						}
-					</div> */}
+					<div className="filters-container">
+						<FilterWeb
+							warehouses={warehouses}
+							categories={categories}
+							onFilterSelect={handleFilterSelect}
+						/>
+						<FilterMobile
+							warehouses={warehouses}
+							categories={categories}
+							onFilterSelect={handleFilterSelect}
+						/>
+						{/* <div className="clear-filter">
+							{filterText || warehouse || category && (
+									<button className="red white-text btn-flat " onClick={() => this.props.clearFilters()}>
+										Clear Filters
+									</button>
+								)
+							}
+						</div> */}
+					</div>
 					<div className="items-container">
 						<div style={{ fontWeight: 600 }}>INVENTORY</div>
 						<SearchBar

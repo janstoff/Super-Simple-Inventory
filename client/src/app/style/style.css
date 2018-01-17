@@ -1,47 +1,50 @@
+/* APP */
 .app-body {
   margin: 2%;
 }
 
+/* DASHBOARD SCREEN */
 .dashboard-body {
   display: flex;
   justify-content: space-between;
 }
 
+/* DASHBOARD - FILTERS */
+/* filter container */
+.filters-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+/* web filter sub-container */
 .filter-web {
   flex: 1;
   margin-right: 2%;
 }
-
+/* mobile filter sub-container */
 .filter-mobile {
   display: none;
   flex: 1;
   margin: 2%;
 }
-
-.items-container {
-  flex: 4;
-  display: flex;
-  flex-direction: column;
-}
-
+/* filter base component container */
 .button-select-filter {
   margin-bottom: 25px;
 }
-
+/* filter button */
 .filter-button {
   width: 85%;
   font-size: 13px;
 }
 
-/*edit Categories and edit Warehouses container*/
-.filter-add {
+/* DASHBOARD - INVENTORY ITEMS */
+/* container */
+.items-container {
+  flex: 4;
   display: flex;
+  flex-direction: column;
 }
-
-.sub-category-container {
-  display: flex;
-}
-
+/* items header */
 .item-list-header {
   display: flex;
   align-items: center;
@@ -49,22 +52,34 @@
   margin-right: 2%;
   font-size: 12px;
 }
-
+/* item list item */
 .collection-item {
   display: flex;
   align-items: center;
 }
-
+/* list item properties */
 .item-property {
   flex: 3;
 }
-
+/* list item property quantity specifically */
 .item-quantity {
   flex: 1;
   text-align: center;
 }
 
+/* EDIT FILTER ITEMS SCREENS */
+/* containers */
+.edit-filter-items-container {
+  display: flex;
+}
+
+.sub-category-container {
+  display: flex;
+}
+
 @media all and (max-width: 900px) {
+
+  /* DASHBOARD - FILTERS */
     .filter-button {
         font-size: 10px;
         padding: 0%;
@@ -72,15 +87,13 @@
 }
 
 @media all and (max-width: 500px) {
-    .filter-button {
-        font-size: 8px;
-        padding: 0%;
-    }
 
+  /* DASHBOARD SCREEN */
     .dashboard-body {
       flex-direction: column;
     }
 
+  /* DASHBOARD - FILTERS */
     .filter-web {
       display: none;
     }
@@ -100,15 +113,18 @@
       flex: 1;
     }
 
+    .filter-button {
+        font-size: 8px;
+        padding: 0%;
+    }
+
+  /* DASHBOARD - INVENTORY ITEMS */
     .item-list-header {
       font-size: 10px;
     }
 
-    .items-list {
-      font-size: 11px;
-    }
-
     .collection-item {
+      font-size: 11px;
       align-items: flex-start;
     }
 }
