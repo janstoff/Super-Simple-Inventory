@@ -17,7 +17,8 @@ class Landing extends Component {
           <h2>
             Easy Inventory
           </h2>
-          Find, add, analyze inventory...
+          The iventory tool for when you don't need a warehouse management yet.
+          [...Find, add, remove and analyze your shared inventory...]
         </div>
       )
     }
