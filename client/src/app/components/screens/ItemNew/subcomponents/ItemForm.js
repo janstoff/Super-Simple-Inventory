@@ -9,17 +9,18 @@ import FormTextField from '../../../standard/FormTextField'
 import FormDropdownSelect from '../../../standard/FormDropdownSelect'
 import ItemFormSwitch from '../../../standard/FormSwitch'
 
-const DROPDOWN_OPTIONS = ['Option1', 'Option2', 'Option3']
+const DROPDOWN_OPTIONS = ['Option1', 'Option2', 'Option3'] // to be replaced by subcategory array
 
 class ItemForm extends Component {
 	static propTypes = {
+		categories: PropTypes.array,
 		submitting: PropTypes.bool,
 		invalid: PropTypes.bool,
 		location: PropTypes.object, //from React Router
 		handleSubmit: PropTypes.func, //from reduxForm
 		onItemSubmit: PropTypes.func, //from ItemNew
-		categoriesSelection: PropTypes.array,
-		warehousesSelection: PropTypes.array
+		categoriesDropdownOptions: PropTypes.array,
+		warehousesDropdownOptions: PropTypes.array
 	}
 
 	state = {
@@ -53,20 +54,23 @@ class ItemForm extends Component {
 			location,
 			handleSubmit,
 			onItemSubmit,
-			categoriesSelection,
-			warehousesSelection
+			categoriesDropdownOptions,
+			warehousesDropdownOptions
 		} = this.props
 
 		const { selectedCategory } = this.state
 
-		let subcategorySelection
+		let subcategoriesDropdownOptions
 		if (selectedCategory) {
-			subcategorySelection = categories.filter(category => category.name === selectedCategory).map(category => category.subcategories)
+			subcategoriesDropdownOptions = categories
+				.filter(category => category.name === selectedCategory)
+				.map(category => category.subcategories)[0] //[0] to 'remove' outer array bracket
+				.map(subcategory => subcategory.name)
 		} else {
-			subcategorySelection = []
+			subcategoriesDropdownOptions = []
 		}
 
-		console.log(subcategorySelection)
+		console.log(subcategoriesDropdownOptions)
 
 		return (
 			<div className="container">
@@ -83,7 +87,7 @@ class ItemForm extends Component {
 					<Field
 						label="Category"
 						name="category"
-						dropdownOptions={categoriesSelection}
+						dropdownOptions={categoriesDropdownOptions}
 						component={FormDropdownSelect}
 						onChange={event => this.handleCategorySelection(event.target.value)}
 						style={{ marginBottom: 20, fontSize: 12 }}
@@ -91,15 +95,15 @@ class ItemForm extends Component {
 					<Field
 						label="Sub-Category"
 						name="subcategory"
-						// disabled={form.itemForm.values.category ? false : true}
-						dropdownOptions={DROPDOWN_OPTIONS}
+						disabled={selectedCategory ? false : true}
+						dropdownOptions={subcategoriesDropdownOptions}
 						component={FormDropdownSelect}
 						style={{ marginBottom: 20, fontSize: 12 }}
 					/>
 					<Field
 						label="Warehouse"
 						name="warehouse"
-						dropdownOptions={warehousesSelection}
+						dropdownOptions={warehousesDropdownOptions}
 						component={FormDropdownSelect}
 						style={{ marginBottom: 20, fontSize: 12 }}
 					/>
@@ -145,20 +149,20 @@ function validate(values) {
 	}
 	if (!values.warehouse) {
 		errors.warehouse =
-			'Please select which warehoues this item will be stored in.'
+			'Please select which warehouse this item will be stored in.'
 	}
 	if (!values.quantity) {
 		errors.quantity = 'Please state the new amount in storage.'
 	}
 
-	return errors //if errors empty form is considered valid
+	return errors //if errors empty then form is considered valid
 }
 
-function mapStateToProps({ categories, warehouses }) {
+function mapStateToProps({ categories, warehouses, form }) {
 	return {
 		categories,
-		categoriesSelection: categories.map(category => category.name),
-		warehousesSelection: warehouses.map(warehouse => warehouse.name)
+		categoriesDropdownOptions: categories.map(category => category.name),
+		warehousesDropdownOptions: warehouses.map(warehouse => warehouse.name),
 	}
 }
 
