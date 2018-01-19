@@ -11,7 +11,7 @@ export const fetchWarehouses = () => async dispatch => {
 }
 
 
-export const submitCategory = (values, history) => async dispatch => {
+export const submitWarehouse = (values, history) => async dispatch => {
   const res = await axios.post('/api/warehouses', values)
 
   history.push('/items')
