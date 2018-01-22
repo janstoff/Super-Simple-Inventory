@@ -27,7 +27,7 @@ class FilterMobile extends Component {
 				<DropDownFilter
 					title="Category"
 					filterItems={categories}
-					color="cyan lighten-2"
+					color="cyan lighten-3"
 					textColor="white"
 					style={{ margin: 5 }}
 					onFilterSelect={onFilterSelect}
@@ -36,7 +36,7 @@ class FilterMobile extends Component {
           <DropDownFilter
             title="Sub-Category"
   					filterItems={subcategories}
-  					color="cyan lighten-4"
+  					color="cyan lighten-5"
 						textColor="grey"
   					style={{ margin: 5 }}
   					onFilterSelect={onFilterSelect}

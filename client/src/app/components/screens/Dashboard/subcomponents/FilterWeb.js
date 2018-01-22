@@ -42,7 +42,7 @@ class FilterWeb extends Component {
           <DropDownFilter
             title="Sub-Category"
   					filterItems={subcategories}
-  					color="cyan lighten-3"
+  					color="cyan lighten-5"
             textColor="grey"
   					style={{ marginRight: 10 }}
   					onFilterSelect={onFilterSelect}
