@@ -9,13 +9,13 @@ export const handleSearchInput = searchTerm => dispatch => {
 }
 
 export const handleFilterSelect = (filter, filterValue) => dispatch => {
-	if (filter === 'Locations') {
+	if (filter === 'Location') {
 		dispatch({ type: HANDLE_LOCATION_SELECT, payload: filterValue })
 	}
-	if (filter === 'Categories') {
+	if (filter === 'Category') {
 		dispatch({ type: HANDLE_CATEGORY_SELECT, payload: filterValue })
 	}
-	if (filter === 'Subcategories') {
+	if (filter === 'Sub-Category') {
 		dispatch({ type: HANDLE_SUBCATEGORY_SELECT, payload: filterValue })
 	}
 }

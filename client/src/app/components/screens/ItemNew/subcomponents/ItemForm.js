@@ -9,8 +9,6 @@ import FormTextField from '../../../standard/FormTextField'
 import FormDropdownSelect from '../../../standard/FormDropdownSelect'
 import ItemFormSwitch from '../../../standard/FormSwitch'
 
-const DROPDOWN_OPTIONS = ['Option1', 'Option2', 'Option3'] // to be replaced by subcategory array
-
 class ItemForm extends Component {
 	static propTypes = {
 		categories: PropTypes.array,
@@ -69,8 +67,6 @@ class ItemForm extends Component {
 		} else {
 			subcategoriesDropdownOptions = []
 		}
-
-		console.log(subcategoriesDropdownOptions)
 
 		return (
 			<div className="container">
@@ -162,7 +158,7 @@ function mapStateToProps({ categories, warehouses, form }) {
 	return {
 		categories,
 		categoriesDropdownOptions: categories.map(category => category.name),
-		warehousesDropdownOptions: warehouses.map(warehouse => warehouse.name),
+		warehousesDropdownOptions: warehouses.map(warehouse => warehouse.name)
 	}
 }
 

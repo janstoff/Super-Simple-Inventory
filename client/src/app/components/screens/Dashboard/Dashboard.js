@@ -14,12 +14,13 @@ import FilterMobile from './subcomponents/FilterMobile'
 class Dashboard extends Component {
 	static propTypes = {
 		items: PropTypes.array,
-		warehouses: PropTypes.array,
 		categories: PropTypes.array,
+		categoriesDropdownOptions: PropTypes.array,
+		warehousesDropdownOptions: PropTypes.array,
 		fetchItems: PropTypes.func,
 		fetchCategories: PropTypes.func,
 		fetchWarehouses: PropTypes.func,
-		filters: PropTypes.object,
+		filteredCategory: PropTypes.string,
 		handleSearchInput: PropTypes.func,
 		clearFilters: PropTypes.func
 	}
@@ -34,12 +35,14 @@ class Dashboard extends Component {
 		const {
 			items,
 			categories,
-			warehouses,
+			categoriesDropdownOptions,
+			warehousesDropdownOptions,
 			handleSearchInput,
-			handleFilterSelect
+			handleFilterSelect,
+			filteredCategory
 		} = this.props
 
-		const { filterText, warehouse, category } = this.props.filters
+		const { filterText } = this.props.filters
 
 		let showingItems
 		if (filterText) {
@@ -49,18 +52,30 @@ class Dashboard extends Component {
 			showingItems = items
 		}
 
+		let subcategoriesDropdownOptions
+		if (filteredCategory) {
+			subcategoriesDropdownOptions = categories
+				.filter(category => category.name === filteredCategory)
+				.map(category => category.subcategories)[0] //[0] to 'remove' outer array bracket
+				.map(subcategory => subcategory.name)
+		} else {
+			subcategoriesDropdownOptions = []
+		}
+
 		return (
 			<div>
 				<div className="dashboard-body">
 					<div className="filters-container">
 						<FilterWeb
-							warehouses={warehouses}
-							categories={categories}
+							warehouses={warehousesDropdownOptions}
+							categories={categoriesDropdownOptions}
+							subcategories={subcategoriesDropdownOptions}
 							onFilterSelect={handleFilterSelect}
 						/>
 						<FilterMobile
-							warehouses={warehouses}
-							categories={categories}
+							warehouses={warehousesDropdownOptions}
+							categories={categoriesDropdownOptions}
+							subcategories={subcategoriesDropdownOptions}
 							onFilterSelect={handleFilterSelect}
 						/>
 						{/* <div className="clear-filter">
@@ -122,9 +137,11 @@ function mapStateToProps({ items, categories, warehouses, filters }) {
 	}
 
 	return {
+		categories,
+		filteredCategory: filters.category,
 		items: filteredByLocationAndCategoryAndSubcategory,
-		categories: categories.map(category => category.name),
-		warehouses: warehouses.map(warehouse => warehouse.name),
+		categoriesDropdownOptions: categories.map(category => category.name),
+		warehousesDropdownOptions: warehouses.map(warehouse => warehouse.name),
 		filters
 	}
 }

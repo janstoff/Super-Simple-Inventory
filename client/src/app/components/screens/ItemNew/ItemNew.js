@@ -1,4 +1,4 @@
-// ItemNew shows a item input form and a review form depending on its state
+// ItemNew shows an item input form or a review form depending on its state
 import React, { Component } from 'react'
 import { reduxForm } from 'redux-form'
 
