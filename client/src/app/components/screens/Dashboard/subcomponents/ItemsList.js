@@ -1,5 +1,6 @@
 // ItemsList displays a collection of items
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Collection, CollectionItem } from 'react-materialize'
 
@@ -27,19 +28,20 @@ class ItemsList extends Component {
 				<Collection>
 					{items.map(item => {
 						return (
-							<CollectionItem
-								className="collection-item"
-								key={item._id}
-								style={
-									item.rental ? { background: '#e7ecf4' } : { background: '#fff' }
-								}
-							>
-								<i className="item-property" style={{ fontWeight: 600 }}>{item.itemName}</i>
-								<i className="item-property">{item.category}</i>
-								<i className="item-property">{item.warehouse}</i>
-								<i className="item-property" style={{ color: '#8a9dbd' }}>{item.rental ? 'rental' : ''}</i>
-								<i className="item-quantity" style={{ fontWeight: 500 }}>{item.quantity}</i>
-							</CollectionItem>
+							<Link to={`/items/${item._id}`} style={{ color: '#000' }} key={item._id}>
+								<CollectionItem
+									className="collection-item"
+									style={
+										item.rental ? { background: '#e7ecf4' } : { background: '#fff' }
+									}
+								>
+									<i className="item-property" style={{ fontWeight: 600 }}>{item.itemName}</i>
+									<i className="item-property">{item.category}</i>
+									<i className="item-property">{item.warehouse}</i>
+									<i className="item-property" style={{ color: '#8a9dbd' }}>{item.rental ? 'rental' : ''}</i>
+									<i className="item-quantity" style={{ fontWeight: 500 }}>{item.quantity}</i>
+								</CollectionItem>
+							</Link>
 						)
 					})}
 				</Collection>
