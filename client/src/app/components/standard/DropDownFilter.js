@@ -21,10 +21,10 @@ class DropDownFilter extends Component {
 					className={`browser-default ${color} ${textColor}-text`}
 					onChange={event => onFilterSelect(title, event.target.value)}
 				>
-					<option value="">Select {title}</option>
+					<option value="">{title.toUpperCase()}</option>
 					{filterItems.map(option => (
 						<option key={option} value={option}>
-							{option}
+							{option.toUpperCase()}
 						</option>
 					))}
 				</select>

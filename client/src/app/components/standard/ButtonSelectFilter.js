@@ -11,7 +11,8 @@ class ButtonSelectFilter extends Component {
 		buttonColor: PropTypes.string,
 		editButtonColor: PropTypes.string,
 		editRoute: PropTypes.string,
-		onFilterSelect: PropTypes.func
+		onFilterSelect: PropTypes.func,
+		activeButton:PropTypes.string
 	}
 
 	render() {
@@ -21,8 +22,11 @@ class ButtonSelectFilter extends Component {
 			buttonColor,
 			editButtonColor,
 			editRoute,
-			onFilterSelect
+			onFilterSelect,
+			activeButton
 		} = this.props
+
+		console.log(activeButton)
 
 		return (
 			<div className="button-select-filter">
@@ -34,10 +38,11 @@ class ButtonSelectFilter extends Component {
 								waves="light"
 								value={item}
 								className={`filter-button ${buttonColor}`}
-								style={{ marginBottom: 5 }}
+								style={item === activeButton ? { marginTop: 5, marginBottom: 10 } : {opacity: 0.7, marginBottom: 5}}
 								onClick={(event) => onFilterSelect(title, event.target.value)}
 							>
 								{item}
+								{item === activeButton && <i className="material-icons right">chevron_left</i>}
 							</Button>
 						</li>
 					))}

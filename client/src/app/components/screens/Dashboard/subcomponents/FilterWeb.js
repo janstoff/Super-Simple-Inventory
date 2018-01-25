@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import ButtonSelectFilter from '../../../standard/ButtonSelectFilter'
 import DropDownFilter from '../../../standard/DropDownFilter'
@@ -9,7 +10,9 @@ class FilterWeb extends Component {
     warehouses: PropTypes.array,
     categories: PropTypes.array,
     subcategories: PropTypes.array,
-    onFilterSelect: PropTypes.func
+    onFilterSelect: PropTypes.func,
+    selectedWarehouse: PropTypes.string,
+    selectedCategory: PropTypes.string
   }
 
   render () {
@@ -17,7 +20,9 @@ class FilterWeb extends Component {
 			categories,
 			warehouses,
       subcategories,
-			onFilterSelect
+			onFilterSelect,
+      selectedWarehouse,
+      selectedCategory
 		} = this.props
 
     return (
@@ -29,6 +34,7 @@ class FilterWeb extends Component {
           editButtonColor="brown lighten-4"
           editRoute="/warehouses"
           onFilterSelect={onFilterSelect}
+          activeButton={selectedWarehouse}
         />
         <ButtonSelectFilter
           title="Category"
@@ -37,6 +43,7 @@ class FilterWeb extends Component {
           editButtonColor="cyan lighten-4"
           editRoute="/categories"
           onFilterSelect={onFilterSelect}
+          activeButton={selectedCategory}
         />
         {subcategories.toString() && //toString() in order to force falsy evaluation if empty arr
           <DropDownFilter
@@ -53,4 +60,11 @@ class FilterWeb extends Component {
   }
 }
 
-export default FilterWeb
+function mapStateToProps({ filters }) {
+  return {
+    selectedWarehouse: filters.warehouse,
+    selectedCategory: filters.category
+  }
+}
+
+export default connect(mapStateToProps)(FilterWeb)
