@@ -1,4 +1,4 @@
-import { FETCH_ITEMS, ADD_ITEM } from '../actions/itemsActions'
+import { FETCH_ITEMS, ADD_ITEM, CHANGE_ITEM_QUANTITY } from '../actions/itemsActions'
 
 export default function(state = [], action) {
   switch(action.type) {
@@ -8,6 +8,10 @@ export default function(state = [], action) {
       return [
         ...state, action.payload
       ]
+    // case CHANGE_ITEM_QUANTITY:
+    //   return {
+    //     ...state,
+    //   }
     default:
       return state
   }

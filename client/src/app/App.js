@@ -1,6 +1,6 @@
 import './style/style.css'
 import React, { Component } from 'react'
-import { BrowserRouter, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -11,6 +11,7 @@ import Dashboard from './components/screens/Dashboard/Dashboard'
 import ItemNew from './components/screens/ItemNew/ItemNew'
 import EditWarehouses from './components/screens/EditWarehouses/EditWarehouses'
 import EditCategories from './components/screens/EditCategories/EditCategories'
+import ItemView from './components/screens/ItemView/ItemView'
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
 	<Route
@@ -39,24 +40,29 @@ class App extends Component {
 				<div>
 					<Header auth={auth} />
 					<div className="app-body" style={{ marginTop: 15 }}>
-						<Route exact path="/" component={StartScreen} />
-						<PrivateRoute
-							exact
-							path="/items"
-							component={Dashboard}
-							auth={auth}
-						/>
-						<PrivateRoute path="/items/new" component={ItemNew} auth={auth} />
-						<PrivateRoute
-							path="/warehouses"
-							component={EditWarehouses}
-							auth={auth}
-						/>
-						<PrivateRoute
-							path="/categories"
-							component={EditCategories}
-							auth={auth}
-						/>
+						<Switch>
+							<PrivateRoute exact path="/items/new" component={ItemNew} auth={auth} />
+							<PrivateRoute path="/items/:id" component={ItemView} auth={auth} />
+							<PrivateRoute
+								exact
+								path="/items"
+								component={Dashboard}
+								auth={auth}
+							/>
+							<PrivateRoute
+								exact
+								path="/warehouses"
+								component={EditWarehouses}
+								auth={auth}
+							/>
+							<PrivateRoute
+								exact
+								path="/categories"
+								component={EditCategories}
+								auth={auth}
+							/>
+							<Route exact path="/" component={StartScreen} />
+						</Switch>
 					</div>
 				</div>
 			</BrowserRouter>

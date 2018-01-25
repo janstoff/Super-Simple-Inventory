@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const FETCH_WAREHOUSES = 'FETCH_WAREHOUSES'
-export const ADD_WAREHOUSE = 'ADD_WAREHOUSE'
+export const EDIT_WAREHOUSES = 'EDIT_WAREHOUSES'
 
 
 export const fetchWarehouses = () => async dispatch => {
@@ -11,9 +11,8 @@ export const fetchWarehouses = () => async dispatch => {
 }
 
 
-export const submitWarehouse = (values, history) => async dispatch => {
+export const editWarehouses = (values) => async dispatch => {
   const res = await axios.post('/api/warehouses', values)
-
-  history.push('/items')
-  dispatch({ type: ADD_WAREHOUSE, payload: res.data })
+  
+  dispatch({ type: EDIT_WAREHOUSES, payload: res.data })
 }

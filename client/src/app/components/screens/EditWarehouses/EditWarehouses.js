@@ -69,16 +69,21 @@ class EditWarehouses extends Component {
 		this.props.initialize(initData)
 	}
 
+	onSubmit(values) {
+		this.props.editWarehouses(values)
+		.then(this.props.history.push('/'))
+	}
+
 	render() {
 		const {
 			submitting,
 			pristine,
-			handleSubmit,
+			handleSubmit
 		} = this.props
 
 		return (
 			<div className="container">
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 					<FieldArray name="warehouses" component={renderWarehouses} />
 					<button
 						type="submit"
