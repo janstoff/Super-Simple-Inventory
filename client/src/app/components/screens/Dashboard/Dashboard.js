@@ -15,6 +15,7 @@ class Dashboard extends Component {
 	static propTypes = {
 		items: PropTypes.array,
 		categories: PropTypes.array,
+		warehouses: PropTypes.array,
 		categoriesDropdownOptions: PropTypes.array,
 		warehousesDropdownOptions: PropTypes.array,
 		fetchItems: PropTypes.func,
@@ -26,9 +27,18 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchItems()
-		this.props.fetchCategories()
-		this.props.fetchWarehouses()
+		const {
+			items,
+			categories,
+			warehouses,
+			fetchItems,
+			fetchCategories,
+			fetchWarehouses
+		} = this.props
+
+		if (!items.toString()) { fetchItems() }
+		if (!categories.toString()) { fetchCategories() }
+		if (!warehouses.toString()) { fetchWarehouses() }
 	}
 
 	render() {
@@ -42,7 +52,13 @@ class Dashboard extends Component {
 			filteredCategory
 		} = this.props
 
-		const { filterText } = this.props.filters
+		const { filterText, warehouse, category, subcategory } = this.props.filters
+
+		const filtering = () => {
+			if (filterText || warehouse || category || subcategory) {
+				return true
+			}
+		}
 
 		let showingItems
 		if (filterText) {
@@ -78,23 +94,26 @@ class Dashboard extends Component {
 							subcategories={subcategoriesDropdownOptions}
 							onFilterSelect={handleFilterSelect}
 						/>
-						{/* <div className="clear-filter">
-							{filterText || warehouse || category && (
-									<button className="red white-text btn-flat " onClick={() => this.props.clearFilters()}>
-										Clear Filters
-									</button>
-								)
-							}
-						</div> */}
 					</div>
 					<div className="items-container">
 						<div style={{ fontWeight: 600 }}>INVENTORY</div>
-						<SearchBar
-							className="search-bar"
-							items={items}
-							filterText={filterText}
-							onSearchInput={handleSearchInput}
-						/>
+						<div className="search-bar-container">
+							<SearchBar
+								items={items}
+								filterText={filterText}
+								onSearchInput={handleSearchInput}
+							/>
+							<div className="clear-filter">
+								{filtering() && (
+									<button
+										className="clear-filter-btn amber darken-4 white-text btn-flat "
+										onClick={() => this.props.clearFilters()}
+									>
+										Clear Filters
+									</button>
+								)}
+							</div>
+						</div>
 						<ItemsList items={showingItems} />
 					</div>
 				</div>
@@ -138,6 +157,7 @@ function mapStateToProps({ items, categories, warehouses, filters }) {
 
 	return {
 		categories,
+		warehouses,
 		filteredCategory: filters.category,
 		items: filteredByLocationAndCategoryAndSubcategory,
 		categoriesDropdownOptions: categories.map(category => category.name),
