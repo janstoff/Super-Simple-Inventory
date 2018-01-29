@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 
 const SearchBar = ({ filterText, onSearchInput }) => (
   <input
-      type="search"
+      className="search-bar"
+      style={{ width: '70%' }}
       placeholder="Search"
       value={filterText}
       onChange={event => onSearchInput(event.target.value)}

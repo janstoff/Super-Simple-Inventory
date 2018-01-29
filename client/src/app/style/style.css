@@ -9,6 +9,20 @@
   justify-content: space-between;
 }
 
+/* DASHBOARD - SEARCHBAR */
+.search-bar-container {
+  display: flex;
+}
+
+.search-bar {
+  flex: 1;
+}
+
+.clear-filter-btn {
+  flex: 1;
+  font-size: 11px;
+}
+
 /* DASHBOARD - FILTERS */
 /* filter container */
 .filters-container {
@@ -58,7 +72,11 @@
   margin-right: 2%;
   font-size: 12px;
 }
-/* item list item */
+/* items list */
+.items-list {
+  overflow: auto;
+}
+/* items list item */
 .collection-item {
   display: flex;
   align-items: center;
@@ -71,6 +89,20 @@
 .item-quantity {
   flex: 1;
   text-align: center;
+}
+
+/* SINGLE ITEM VIEW SCREEN */
+.item-view {
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name-quantity {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: '#e2e2e2';
 }
 
 /* EDIT FILTER ITEMS SCREENS */
@@ -90,6 +122,11 @@
         font-size: 10px;
         padding: 0%;
     }
+
+    .clear-filter-btn {
+      font-size: 9px;
+    }
+
 }
 
 @media all and (max-width: 500px) {

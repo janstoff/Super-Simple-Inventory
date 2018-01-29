@@ -25,7 +25,9 @@ class ItemsList extends Component {
 					<i className="item-property">usage</i>
 					<i className="item-quantity" style={{ fontWeight: 500 }}>quantity</i>
 				</p>
-				<Collection>
+				<Collection
+					className="items-list"
+					>
 					{items.map(item => {
 						return (
 							<Link to={`/items/${item._id}`} style={{ color: '#000' }} key={item._id}>
