@@ -8,10 +8,16 @@ export default function(state = [], action) {
       return [
         ...state, action.payload
       ]
-    // case CHANGE_ITEM_QUANTITY:
-    //   return {
-    //     ...state,
-    //   }
+    case CHANGE_ITEM_QUANTITY:
+      return state.map(item => {
+        if (item._id !== action.payload.id) {
+          return item
+        }
+        return {
+          ...item,
+          quantity: item.quantity + action.payload.quantity
+        }
+      })
     default:
       return state
   }

@@ -19,8 +19,8 @@ export const submitItem = (values, history) => async dispatch => {
   dispatch({ type: ADD_ITEM, payload: res.data })
 }
 
-export const changeItemQuantity = (itemId, newQuantity) => dispatch => {
+export const changeItemQuantity = (id, quantity) => dispatch => {
   //async action
 
-  dispatch({ type: CHANGE_ITEM_QUANTITY, payload: { id: itemId, quantity: newQuantity } })
+  dispatch({ type: CHANGE_ITEM_QUANTITY, payload: { id, quantity } })
 }
