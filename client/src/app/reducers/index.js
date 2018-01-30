@@ -5,6 +5,7 @@ import itemsReducer from './itemsReducer'
 import categoriesReducer from './categoriesReducer'
 import warehousesReducer from './warehousesReducer'
 import filtersReducer from './filtersReducer'
+import errorsReducer from './errorsReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   items: itemsReducer,
   categories: categoriesReducer,
   warehouses: warehousesReducer,
-  filters: filtersReducer
+  filters: filtersReducer,
+  error: errorsReducer
 })

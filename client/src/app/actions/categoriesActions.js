@@ -1,13 +1,19 @@
 import axios from 'axios'
+import { HANDLE_ERROR } from './errorsActions'
 
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const ADD_CATEGORY = 'ADD_CATEGORY'
 
 
 export const fetchCategories = () => async dispatch => {
-  const res = await axios.get('/api/categories')
+  let res
+  try {
+    res = await axios.get('/api/categories')
+  } catch (error) {
+    dispatch({ type: HANDLE_ERROR, payload: error })
+  }
 
-  dispatch({ type: FETCH_CATEGORIES, payload: res.data })
+  if (res) { dispatch({ type: FETCH_CATEGORIES, payload: res.data }) }
 }
 
 

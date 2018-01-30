@@ -10,6 +10,7 @@ import ItemsList from './subcomponents/ItemsList'
 import SearchBar from '../../standard/SearchBar'
 import FilterWeb from './subcomponents/FilterWeb'
 import FilterMobile from './subcomponents/FilterMobile'
+import ErrorHandler from '../../standard/ErrorHandler'
 
 class Dashboard extends Component {
 	static propTypes = {
@@ -23,7 +24,8 @@ class Dashboard extends Component {
 		fetchWarehouses: PropTypes.func,
 		filteredCategory: PropTypes.string,
 		handleSearchInput: PropTypes.func,
-		clearFilters: PropTypes.func
+		clearFilters: PropTypes.func,
+		error: PropTypes.object
 	}
 
 	componentDidMount() {
@@ -36,9 +38,9 @@ class Dashboard extends Component {
 			fetchWarehouses
 		} = this.props
 
-		if (!items.toString()) { fetchItems() }
-		if (!categories.toString()) { fetchCategories() }
-		if (!warehouses.toString()) { fetchWarehouses() }
+		if (items.length < 1) { fetchItems() }
+		if (categories.length < 1) { fetchCategories() }
+		if (warehouses.length < 1) { fetchWarehouses() }
 	}
 
 	render() {
@@ -49,7 +51,8 @@ class Dashboard extends Component {
 			warehousesDropdownOptions,
 			handleSearchInput,
 			handleFilterSelect,
-			filteredCategory
+			filteredCategory,
+			error
 		} = this.props
 
 		const { filterText, warehouse, category, subcategory } = this.props.filters
@@ -76,6 +79,10 @@ class Dashboard extends Component {
 				.map(subcategory => subcategory.name)
 		} else {
 			subcategoriesDropdownOptions = []
+		}
+
+		if (error) {
+			return <ErrorHandler/>
 		}
 
 		return (
@@ -127,7 +134,7 @@ class Dashboard extends Component {
 	}
 }
 
-function mapStateToProps({ items, categories, warehouses, filters }) {
+function mapStateToProps({ items, categories, warehouses, filters, error }) {
 	let filteredByLocation
 	if (filters.warehouse) {
 		filteredByLocation = items.filter(
@@ -162,7 +169,8 @@ function mapStateToProps({ items, categories, warehouses, filters }) {
 		items: filteredByLocationAndCategoryAndSubcategory,
 		categoriesDropdownOptions: categories.map(category => category.name),
 		warehousesDropdownOptions: warehouses.map(warehouse => warehouse.name),
-		filters
+		filters,
+		error
 	}
 }
 

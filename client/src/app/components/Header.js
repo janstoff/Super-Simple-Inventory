@@ -34,7 +34,7 @@ class Header extends Component {
 						<Link to="/categories" style={{ fontSize: 14, color: '#386b66' }}>categories</Link>
 						<Link to="/warehouses" style={{ fontSize: 14, color: '#386b66' }}>warehouses</Link>
 					</Dropdown>
-					<NavItem href='/items'><Icon>refresh</Icon></NavItem>
+					<NavItem href='/'><Icon>refresh</Icon></NavItem>
 					{this.renderLogStatus()}
 				</Navbar>
 		)
