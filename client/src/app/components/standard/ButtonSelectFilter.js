@@ -26,8 +26,6 @@ class ButtonSelectFilter extends Component {
 			activeButton
 		} = this.props
 
-		console.log(activeButton)
-
 		return (
 			<div className="button-select-filter">
 				<p style={{ fontWeight: 600 }}>{title}</p>

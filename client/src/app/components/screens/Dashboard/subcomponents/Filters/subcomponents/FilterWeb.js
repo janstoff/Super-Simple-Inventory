@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import ButtonSelectFilter from '../../../standard/ButtonSelectFilter'
-import DropDownFilter from '../../../standard/DropDownFilter'
+import ButtonSelectFilter from '../../../../../standard/ButtonSelectFilter'
+import DropDownFilter from '../../../../../standard/DropDownFilter'
 
 class FilterWeb extends Component {
   static propTypes = {

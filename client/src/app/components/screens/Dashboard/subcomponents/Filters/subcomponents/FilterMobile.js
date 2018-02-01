@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import DropDownFilter from '../../../standard/DropDownFilter'
+import DropDownFilter from '../../../../../standard/DropDownFilter'
 
 class FilterMobile extends Component {
 	static propTypes = {

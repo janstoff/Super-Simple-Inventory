@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
+import { Button } from 'react-materialize'
 
 import * as actions from '../../../actions'
+import Filters from './subcomponents/Filters/Filters'
 import ItemsList from './subcomponents/ItemsList'
 import SearchBar from '../../standard/SearchBar'
-import FilterWeb from './subcomponents/FilterWeb'
-import FilterMobile from './subcomponents/FilterMobile'
 import ErrorHandler from '../../standard/ErrorHandler'
 
 class Dashboard extends Component {
@@ -25,7 +24,9 @@ class Dashboard extends Component {
 		filteredCategory: PropTypes.string,
 		handleSearchInput: PropTypes.func,
 		clearFilters: PropTypes.func,
-		error: PropTypes.object
+		error: PropTypes.object,
+		addToLastViewed: PropTypes.func,
+		populateLastViewed: PropTypes.func
 	}
 
 	componentDidMount() {
@@ -35,73 +36,84 @@ class Dashboard extends Component {
 			warehouses,
 			fetchItems,
 			fetchCategories,
-			fetchWarehouses
+			fetchWarehouses,
+			lastviewed,
+			populateLastViewed
 		} = this.props
 
-		if (items.length < 1) { fetchItems() }
-		if (categories.length < 1) { fetchCategories() }
-		if (warehouses.length < 1) { fetchWarehouses() }
+		/* ONLY FETCH ALL ONCE PER APP LOAD */
+		if (items.length < 1) {
+			fetchItems()
+		}
+		if (categories.length < 1) {
+			fetchCategories()
+		}
+		if (warehouses.length < 1) {
+			fetchWarehouses()
+		}
+		if (lastviewed.length < 1) {
+			populateLastViewed()
+		}
+	}
+
+	/* ON VIEWING AN ITEM ADD IT TO LASTVIEWED FOR FUTURE FAST SEARCH */
+	onViewItem = id => {
+		const { lastviewed } = this.props
+		const viewed = {
+			id: id,
+			dateTime: Date.now()
+		}
+		const updatedLastviewed = [...lastviewed, viewed]
+
+		this.props.addToLastViewed(viewed, updatedLastviewed)
 	}
 
 	render() {
 		const {
 			items,
-			categories,
-			categoriesDropdownOptions,
-			warehousesDropdownOptions,
 			handleSearchInput,
-			handleFilterSelect,
-			filteredCategory,
-			error
+			error,
+			filters,
+			lastviewed
 		} = this.props
 
-		const { filterText, warehouse, category, subcategory } = this.props.filters
+		const {
+			filterText,
+			lastViewedFilter
+		} = this.props.filters
 
-		const filtering = () => {
-			if (filterText || warehouse || category || subcategory) {
-				return true
-			}
+		/* GENERATE DISPLAYED ITEMS IF "LAST VIEWED" IS SELECTED */
+		let filteredForLastViewedItems
+		if (filters.lastViewedFilter) {
+			const lastViewedIds = lastviewed.map(entry => entry.id)
+
+			filteredForLastViewedItems = items.filter(item =>
+				lastViewedIds.includes(item._id)
+			)
+		} else {
+			filteredForLastViewedItems = items
 		}
 
+		/* GENERATE DISPLAYED ITEMS BASED SEARCH INPUT */
 		let showingItems
 		if (filterText) {
 			const match = new RegExp(escapeRegExp(filterText), 'i' /*ignore case*/)
-			showingItems = items.filter(item => match.test(item.itemName))
+			showingItems = filteredForLastViewedItems.filter(item =>
+				match.test(item.itemName)
+			)
 		} else {
-			showingItems = items
+			showingItems = filteredForLastViewedItems
 		}
 
-		let subcategoriesDropdownOptions
-		if (filteredCategory) {
-			subcategoriesDropdownOptions = categories
-				.filter(category => category.name === filteredCategory)
-				.map(category => category.subcategories)[0] //[0] to 'remove' outer array bracket
-				.map(subcategory => subcategory.name)
-		} else {
-			subcategoriesDropdownOptions = []
-		}
-
+		/* IN CASE OF A FETCHING ERROR DISPLAY ERROR MESSAGE AND RELOAD BUTTON*/
 		if (error) {
-			return <ErrorHandler/>
+			return <ErrorHandler />
 		}
 
 		return (
 			<div>
 				<div className="dashboard-body">
-					<div className="filters-container">
-						<FilterWeb
-							warehouses={warehousesDropdownOptions}
-							categories={categoriesDropdownOptions}
-							subcategories={subcategoriesDropdownOptions}
-							onFilterSelect={handleFilterSelect}
-						/>
-						<FilterMobile
-							warehouses={warehousesDropdownOptions}
-							categories={categoriesDropdownOptions}
-							subcategories={subcategoriesDropdownOptions}
-							onFilterSelect={handleFilterSelect}
-						/>
-					</div>
+					<Filters />
 					<div className="items-container">
 						<div style={{ fontWeight: 600 }}>INVENTORY</div>
 						<div className="search-bar-container">
@@ -110,18 +122,8 @@ class Dashboard extends Component {
 								filterText={filterText}
 								onSearchInput={handleSearchInput}
 							/>
-							<div className="clear-filter">
-								{filtering() && (
-									<button
-										className="clear-filter-btn amber darken-4 white-text btn-flat "
-										onClick={() => this.props.clearFilters()}
-									>
-										Clear Filters
-									</button>
-								)}
-							</div>
 						</div>
-						<ItemsList items={showingItems} />
+						<ItemsList items={showingItems} onViewItem={this.onViewItem} />
 					</div>
 				</div>
 				<div className="fixed-action-btn">
@@ -134,7 +136,16 @@ class Dashboard extends Component {
 	}
 }
 
-function mapStateToProps({ items, categories, warehouses, filters, error }) {
+function mapStateToProps({
+	items,
+	categories,
+	warehouses,
+	filters,
+	error,
+	lastviewed
+}) {
+
+	/* GENERATE ITEMS ARRAY BASED ON ACTIVE FILTERS */
 	let filteredByLocation
 	if (filters.warehouse) {
 		filteredByLocation = items.filter(
@@ -165,12 +176,10 @@ function mapStateToProps({ items, categories, warehouses, filters, error }) {
 	return {
 		categories,
 		warehouses,
-		filteredCategory: filters.category,
 		items: filteredByLocationAndCategoryAndSubcategory,
-		categoriesDropdownOptions: categories.map(category => category.name),
-		warehousesDropdownOptions: warehouses.map(warehouse => warehouse.name),
 		filters,
-		error
+		error,
+		lastviewed
 	}
 }
 

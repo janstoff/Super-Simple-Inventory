@@ -1,14 +1,18 @@
-import { HANDLE_SEARCH } from '../actions/filtersActions'
-import { HANDLE_LOCATION_SELECT } from '../actions/filtersActions'
-import { HANDLE_CATEGORY_SELECT } from '../actions/filtersActions'
-import { HANDLE_SUBCATEGORY_SELECT } from '../actions/filtersActions'
-import { CLEAR_FILTERS } from '../actions/filtersActions'
+import {
+	HANDLE_SEARCH,
+	HANDLE_LOCATION_SELECT,
+	HANDLE_CATEGORY_SELECT,
+	HANDLE_SUBCATEGORY_SELECT,
+	HANDLE_LASTVIEWED_SELECT,
+	CLEAR_FILTERS
+} from '../actions/filtersActions'
 
 const initialState = {
 	filterText: '',
 	warehouse: '',
 	category: '',
-	subcategory: ''
+	subcategory: '',
+	lastViewedFilter: false
 }
 
 export default function(state = initialState, action) {
@@ -33,14 +37,20 @@ export default function(state = initialState, action) {
 				...state,
 				subcategory: action.payload
 			}
+		case HANDLE_LASTVIEWED_SELECT:
+			return {
+				...state,
+				lastViewedFilter: action.payload
+			}
 		case CLEAR_FILTERS:
-		return {
-			...state,
-			filterText: action.payload,
-			warehouse: action.payload,
-			category: action.payload,
-			subcategory: action.payload
-		}
+			return {
+				...state,
+				filterText: action.payload,
+				warehouse: action.payload,
+				category: action.payload,
+				subcategory: action.payload,
+				lastViewedFilter: false
+			}
 		default:
 			return state
 	}

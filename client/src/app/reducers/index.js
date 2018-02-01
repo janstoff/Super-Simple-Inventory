@@ -6,6 +6,7 @@ import categoriesReducer from './categoriesReducer'
 import warehousesReducer from './warehousesReducer'
 import filtersReducer from './filtersReducer'
 import errorsReducer from './errorsReducer'
+import lastviewedReducer from './lastviewedReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   categories: categoriesReducer,
   warehouses: warehousesReducer,
   filters: filtersReducer,
-  error: errorsReducer
+  error: errorsReducer,
+  lastviewed: lastviewedReducer
 })

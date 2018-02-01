@@ -18,16 +18,23 @@
   flex: 1;
 }
 
-.clear-filter-btn {
-  flex: 1;
-  font-size: 11px;
-}
-
 /* DASHBOARD - FILTERS */
 /* filter container */
 .filters-container {
   flex: 1;
   display: flex;
+  flex-direction: column;
+}
+
+.filters-title {
+  flex: 1;
+}
+
+.filters-modal {
+  flex: 1;
+  display: flex;
+  padding: 2%;
+  margin: 2%;
   flex-direction: column;
 }
 /* web filter sub-container */
@@ -53,6 +60,7 @@
 }
 /* filter button */
 .filter-button {
+  align-self: flex-start;
   width: 85%;
   font-size: 13px;
 }
@@ -122,11 +130,6 @@
         font-size: 10px;
         padding: 0%;
     }
-
-    .clear-filter-btn {
-      font-size: 9px;
-    }
-
 }
 
 @media all and (max-width: 500px) {
@@ -137,6 +140,11 @@
     }
 
   /* DASHBOARD - FILTERS */
+
+    .filters-title {
+      font-size: 10px;
+    }
+
     .filter-web {
       display: none;
     }
@@ -158,8 +166,10 @@
     }
 
     .filter-button {
-        font-size: 8px;
-        padding: 0%;
+      align-self: center;
+      width: 90%;
+      font-size: 11px;
+      display:
     }
 
   /* DASHBOARD - INVENTORY ITEMS */

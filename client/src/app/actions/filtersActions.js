@@ -2,6 +2,7 @@ export const HANDLE_SEARCH = 'HANDLE_SEARCH'
 export const HANDLE_LOCATION_SELECT = 'HANDLE_LOCATION_SELECT'
 export const HANDLE_CATEGORY_SELECT = 'HANDLE_CATEGORY_SELECT'
 export const HANDLE_SUBCATEGORY_SELECT = 'HANDLE_SUBCATEGORY_SELECT'
+export const HANDLE_LASTVIEWED_SELECT = 'HANDLE_LASTVIEWED_SELECT'
 export const CLEAR_FILTERS = 'CLEAR_FILTERS'
 
 export const handleSearchInput = searchTerm => dispatch => {
@@ -17,6 +18,9 @@ export const handleFilterSelect = (filter, filterValue) => dispatch => {
 	}
 	if (filter === 'Sub-Category') {
 		dispatch({ type: HANDLE_SUBCATEGORY_SELECT, payload: filterValue })
+	}
+	if (filter === 'Last-Viewed') {
+		dispatch({ type: HANDLE_LASTVIEWED_SELECT, payload: filterValue })
 	}
 }
 
