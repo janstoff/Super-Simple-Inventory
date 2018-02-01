@@ -144,7 +144,7 @@ function mapStateToProps({
 	error,
 	lastviewed
 }) {
-
+	
 	/* GENERATE ITEMS ARRAY BASED ON ACTIVE FILTERS */
 	let filteredByLocation
 	if (filters.warehouse) {
